@@ -55,7 +55,13 @@ Plans:
   4. User can request org handoff using either `composio_claim` or `/composio-claim <email>` and receive actionable status/next steps.
   5. User can run `composio_debug_info` and see version, auth source, handoff path, and registered tools with all secrets redacted.
 **Research flags**: Signup/claim exact POST payloads, response shapes, idempotency, and identity state transitions need validation against live APIs or `composio-x-pi` source before final implementation planning.  
-**Plans**: TBD
+**Plans:** 4 plans
+
+Plans:
+- [ ] 02-credentials-signup-claim-redacted-debug-01-PLAN.md — Create shared anonymous credential persistence, env-first auth resolution, signup guidance, and redaction primitives.
+- [ ] 02-credentials-signup-claim-redacted-debug-02-PLAN.md — Implement official Composio anonymous signup/whoami flow, safe signup tool output, and opt-in live API contract test.
+- [ ] 02-credentials-signup-claim-redacted-debug-03-PLAN.md — Implement anonymous org claim/handoff plus a verifyable `/composio-claim <email>` command path/template.
+- [ ] 02-credentials-signup-claim-redacted-debug-04-PLAN.md — Wire real Phase 2 handlers into the plugin registry and replace placeholder diagnostics with redacted debug info.
 
 ### Phase 3: Composio Meta Tools & Safety Descriptions
 **Goal**: Agents can use Composio’s complete v1 meta-tool surface inside opencode for discovery, schema lookup, connection management, multi-tool execution, remote bash, and remote workbench, with structured safe outputs.  
