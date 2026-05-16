@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-05-15)
 ## Current Position
 
 Phase: 2 of 8 (Credentials, Signup, Claim & Redacted Debug)  
-Plan: 2 of 4 in current phase  
+Plan: 3 of 4 in current phase  
 Status: In progress  
-Last activity: 2026-05-16 — Completed Phase 2 Plan 02 official agent signup/whoami flow, idempotent anonymous persistence, and redacted signup tool factory.
+Last activity: 2026-05-16 — Completed Phase 2 Plan 03 anonymous claim handoff, composio_claim tool factory, and /composio-claim command templates.
 
-Progress: [██░░░░░░░░] 18%
+Progress: [██░░░░░░░░] 21%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 5
+- Total plans completed: 6
 - Average duration: 3 min
-- Total execution time: 0.23 hours
+- Total execution time: 0.30 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
-| 02-credentials-signup-claim-redacted-debug | 2 | 8 min | 4 min |
+| 02-credentials-signup-claim-redacted-debug | 3 | 12 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 3 min, 2 min, 3 min, 5 min
-- Trend: Phase 2 auth implementation remains fast while adding live-gated API validation
+- Last 5 plans: 3 min, 2 min, 3 min, 5 min, 4 min
+- Trend: Phase 2 auth implementation remains fast while adding secret-safe claim handoff
 
 *Updated after each plan completion*
 
@@ -61,10 +61,13 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02-credentials-signup-claim-redacted-debug]: Exposed only wait?: boolean for signup, mapping wait=false to official wait=0 and intentionally omitting undocumented force support.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Made existing anonymous credential reuse conditional on whoami readiness plus a persisted usable composio.api_key, while returning only redacted summaries.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Kept live signup verification opt-in behind RUN_COMPOSIO_LIVE_AGENT_TESTS=1 with isolated temporary HOME.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Claim handoff uses the persisted anonymous agent_key as the only Authorization credential and never includes COMPOSIO_API_KEY or raw invite codes in outputs.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Provide both repository-local and examples/commands /composio-claim templates because package-level automatic opencode command registration remains uncertain.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Scrub sensitive error key names at the tool payload boundary so serialized tool errors do not expose credential field names or Authorization headers.
 
 ### Pending Todos
 
-- [Phase 2]: Execute remaining claim and redacted debug/registry wiring plans.
+- [Phase 2]: Execute remaining redacted debug/registry wiring plan.
 
 ### Blockers/Concerns
 
@@ -77,5 +80,5 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 02-credentials-signup-claim-redacted-debug-02-PLAN.md  
+Stopped at: Completed 02-credentials-signup-claim-redacted-debug-03-PLAN.md  
 Resume file: None
