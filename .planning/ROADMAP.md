@@ -41,7 +41,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [ ] 01-package-skeleton-opencode-registration-01-PLAN.md — Create the Bun/TypeScript ESM package skeleton, required scripts, build config, and version helper.
-- [ ] 01-package-skeleton-opencode-registration-02-PLAN.md — Register the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
+- [ ] 01-package-skeleton-opencode-registration-02-PLAN.md — Register and document the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
 - [ ] 01-package-skeleton-opencode-registration-03-PLAN.md — Add naming/no-network tests, local build-load integration, opencode config example, and smoke script.
 
 ### Phase 2: Credentials, Signup, Claim & Redacted Debug
