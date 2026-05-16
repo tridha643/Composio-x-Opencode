@@ -3,6 +3,14 @@ const REDACTED = "[REDACTED]"
 const SECRET_KEY_PATTERN =
   /(^|[_-]|\b)(api[_-]?key|user[_-]?api[_-]?key|agent[_-]?key|token|secret|authorization|password)([_-]|\b|$)/i
 
+const SAFE_SECRET_METADATA_KEYS = new Set([
+  "apiKeyPresent",
+  "envKeyPrecedence",
+  "anonymousDataPresent",
+  "anonymousIdentityPresent",
+  "secretValuesPrinted",
+])
+
 const SECRET_VALUE_PATTERNS = [
   /\bBearer\s+[^\s,;"'}\]]+/gi,
   /\bak_[A-Za-z0-9_\-.]+/g,
@@ -52,7 +60,9 @@ export function redactSecrets(value: unknown, knownSecrets: readonly string[] = 
   return Object.fromEntries(
     Object.entries(value).map(([key, entry]) => [
       key,
-      SECRET_KEY_PATTERN.test(key) ? REDACTED : redactSecrets(entry, knownSecrets),
+      SECRET_KEY_PATTERN.test(key) && !SAFE_SECRET_METADATA_KEYS.has(key)
+        ? REDACTED
+        : redactSecrets(entry, knownSecrets),
     ]),
   )
 }
