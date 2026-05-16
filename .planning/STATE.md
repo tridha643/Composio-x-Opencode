@@ -5,36 +5,37 @@
 See: .planning/PROJECT.md (updated 2026-05-15)
 
 **Core value:** An opencode agent can use Composio’s full meta-tool and trigger-authoring surface with no manual setup, including first-use signup, tool execution, trigger creation, and automation handoff.  
-**Current focus:** Phase 2 — Credentials, Signup, Claim & Redacted Debug
+**Current focus:** Phase 2 complete — ready for Phase 3 meta-tool execution planning
 
 ## Current Position
 
 Phase: 2 of 8 (Credentials, Signup, Claim & Redacted Debug)  
-Plan: 3 of 4 in current phase  
-Status: In progress  
-Last activity: 2026-05-16 — Completed Phase 2 Plan 03 anonymous claim handoff, composio_claim tool factory, and /composio-claim command templates.
+Plan: 4 of 4 in current phase  
+Status: Phase complete  
+Last activity: 2026-05-16 — Completed Phase 2 Plan 04 redacted debug diagnostics and real signup/claim/debug registry wiring.
 
-Progress: [██░░░░░░░░] 21%
+Progress: [███░░░░░░░] 25%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
+- Total plans completed: 7
 - Average duration: 3 min
-- Total execution time: 0.30 hours
+- Total execution time: 0.35 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
-| 02-credentials-signup-claim-redacted-debug | 3 | 12 min | 4 min |
+| 02-credentials-signup-claim-redacted-debug | 4 | 15 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 2 min, 3 min, 5 min, 4 min
-- Trend: Phase 2 auth implementation remains fast while adding secret-safe claim handoff
+- Last 5 plans: 2 min, 3 min, 5 min, 4 min, 3 min
+- Trend: Phase 2 completed quickly while preserving local-only startup, auth redaction, and registry stability
 
 *Updated after each plan completion*
+| Phase 02-credentials-signup-claim-redacted-debug P04 | 3 min | 3 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -64,10 +65,13 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02-credentials-signup-claim-redacted-debug]: Claim handoff uses the persisted anonymous agent_key as the only Authorization credential and never includes COMPOSIO_API_KEY or raw invite codes in outputs.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Provide both repository-local and examples/commands /composio-claim templates because package-level automatic opencode command registration remains uncertain.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Scrub sensitive error key names at the tool payload boundary so serialized tool errors do not expose credential field names or Authorization headers.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Keep composio_debug_info fully local and network-free by resolving only env and anonymous-file metadata at execution time.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Expose credential presence booleans and auth source while never printing COMPOSIO_API_KEY, anonymous JSON secrets, raw headers, or secret-bearing field values.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Wire Phase 2 tools under the existing stable registry names and leave Phase 3+ tools as placeholders to avoid generated v2 surface area.
 
 ### Pending Todos
 
-- [Phase 2]: Execute remaining redacted debug/registry wiring plan.
+- [Phase 3]: Plan meta-tool execution contract and response/error shapes against current Composio APIs.
 
 ### Blockers/Concerns
 
@@ -80,5 +84,5 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 02-credentials-signup-claim-redacted-debug-03-PLAN.md  
+Stopped at: Completed 02-credentials-signup-claim-redacted-debug-04-PLAN.md  
 Resume file: None
