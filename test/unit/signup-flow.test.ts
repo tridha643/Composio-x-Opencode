@@ -45,9 +45,11 @@ function jsonResponse(body: unknown, init: ResponseInit = {}) {
 }
 
 function createSequenceFetch(responses: Response[]) {
-  const calls: Array<{ url: URL | RequestInfo; init?: RequestInit }> = []
-  const fetchImpl = (async (url: URL | RequestInfo, init?: RequestInit) => {
-    calls.push({ url, init })
+  const calls: Array<{ url: Parameters<typeof fetch>[0]; init?: RequestInit }> = []
+  const fetchImpl = (async (url: Parameters<typeof fetch>[0], init?: RequestInit) => {
+    const call: { url: Parameters<typeof fetch>[0]; init?: RequestInit } = { url }
+    if (init !== undefined) call.init = init
+    calls.push(call)
     const response = responses.shift()
     if (!response) throw new Error("Unexpected fetch call")
     return response

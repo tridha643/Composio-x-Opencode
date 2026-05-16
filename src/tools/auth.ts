@@ -1,4 +1,4 @@
-import { tool } from "@opencode-ai/plugin"
+import { tool, type ToolDefinition } from "@opencode-ai/plugin"
 
 import { ensureAnonymousIdentity, type EnsureAnonymousIdentityOptions } from "../auth/signup-flow"
 import { toToolErrorPayload } from "../auth/errors"
@@ -17,7 +17,16 @@ function formatResult(title: string, payload: Record<string, unknown>) {
   }
 }
 
-export function createSignupTool(options: CreateSignupToolOptions = {}) {
+function serviceOptions(options: CreateSignupToolOptions, wait: boolean | undefined): EnsureAnonymousIdentityOptions {
+  const output: EnsureAnonymousIdentityOptions = {}
+  if (options.home !== undefined) output.home = options.home
+  if (options.fetchImpl !== undefined) output.fetchImpl = options.fetchImpl
+  if (options.baseUrl !== undefined) output.baseUrl = options.baseUrl
+  if (wait !== undefined) output.wait = wait
+  return output
+}
+
+export function createSignupTool(options: CreateSignupToolOptions = {}): ToolDefinition {
   const service = options.service ?? ensureAnonymousIdentity
 
   return tool({
@@ -28,12 +37,7 @@ export function createSignupTool(options: CreateSignupToolOptions = {}) {
     },
     async execute(args) {
       try {
-        const summary = await service({
-          home: options.home,
-          fetchImpl: options.fetchImpl,
-          baseUrl: options.baseUrl,
-          wait: args.wait,
-        })
+        const summary = await service(serviceOptions(options, args.wait))
 
         return formatResult(summary.reused ? "Composio signup reused" : "Composio signup complete", summary)
       } catch (error) {

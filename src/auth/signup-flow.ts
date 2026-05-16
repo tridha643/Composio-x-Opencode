@@ -37,6 +37,23 @@ function hasUsableApiKey(data: AnonymousUserData | null | undefined): data is An
   return typeof data?.composio?.api_key === "string" && data.composio.api_key.trim().length > 0
 }
 
+function anonymousOptions(home: string | undefined) {
+  return home === undefined ? {} : { home }
+}
+
+function agentOptions(options: EnsureAnonymousIdentityOptions) {
+  const output: { fetchImpl?: FetchImpl; baseUrl?: string } = {}
+  if (options.fetchImpl !== undefined) output.fetchImpl = options.fetchImpl
+  if (options.baseUrl !== undefined) output.baseUrl = options.baseUrl
+  return output
+}
+
+function signupOptions(options: EnsureAnonymousIdentityOptions) {
+  const output: { fetchImpl?: FetchImpl; baseUrl?: string; wait?: boolean } = agentOptions(options)
+  if (options.wait !== undefined) output.wait = options.wait
+  return output
+}
+
 async function hasRestrictivePermissions(path: string): Promise<boolean | undefined> {
   if (process.platform === "win32") return undefined
   try {
@@ -71,28 +88,27 @@ export async function ensureAnonymousIdentity(
   options: EnsureAnonymousIdentityOptions = {},
 ): Promise<AnonymousIdentitySummary> {
   const anonymousDataPath = getAnonymousUserDataPath(options.home)
-  const existing = await readAnonymousUserData({ home: options.home })
+  const existing = await readAnonymousUserData(anonymousOptions(options.home))
 
   if (existing?.agent_key) {
     try {
-      const verified = await whoAmI(existing.agent_key, {
-        fetchImpl: options.fetchImpl,
-        baseUrl: options.baseUrl,
-      })
+      const verified = await whoAmI(existing.agent_key, agentOptions(options))
 
       if (isReady(verified) && hasUsableApiKey(existing)) {
         return toSummary(
-          {
-            ...existing,
-            status: verified.status ?? existing.status,
-            slug: verified.slug ?? existing.slug,
-            email: verified.email ?? existing.email,
-            composio: {
-              ...existing.composio,
-              org_id: verified.composio?.org_id ?? existing.composio?.org_id,
-              project_id: verified.composio?.project_id ?? existing.composio?.project_id,
-            },
-          },
+          (() => {
+            const merged: AnonymousUserData = {
+              ...existing,
+            }
+            if (verified.status !== undefined) merged.status = verified.status
+            if (verified.slug !== undefined) merged.slug = verified.slug
+            if (verified.email !== undefined) merged.email = verified.email
+            const composio = { ...existing.composio }
+            if (verified.composio?.org_id !== undefined) composio.org_id = verified.composio.org_id
+            if (verified.composio?.project_id !== undefined) composio.project_id = verified.composio.project_id
+            merged.composio = composio
+            return merged
+          })(),
           true,
           anonymousDataPath,
         )
@@ -102,16 +118,12 @@ export async function ensureAnonymousIdentity(
     }
   }
 
-  const signedUp = await signUpAgent({
-    fetchImpl: options.fetchImpl,
-    baseUrl: options.baseUrl,
-    wait: options.wait,
-  })
+  const signedUp = await signUpAgent(signupOptions(options))
 
   if (!isReady(signedUp) || !hasUsableApiKey(signedUp)) {
     throw new UserFacingError("AGENT_SIGNUP_NOT_READY", "Composio agent signup did not return ready credentials.", signedUp)
   }
 
-  await writeAnonymousUserData(signedUp, { home: options.home })
+  await writeAnonymousUserData(signedUp, anonymousOptions(options.home))
   return toSummary(signedUp, false, anonymousDataPath)
 }

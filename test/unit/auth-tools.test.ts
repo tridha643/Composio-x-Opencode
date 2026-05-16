@@ -40,7 +40,8 @@ describe("createSignupTool", () => {
     const result = await tool.execute({ wait: true }, createToolContext())
     const parsed = JSON.parse(outputOf(result))
 
-    expect(parsed).toEqual(result.metadata)
+    expect(typeof result).not.toBe("string")
+    if (typeof result !== "string") expect(parsed).toEqual(result.metadata)
     expect(parsed.ok).toBe(true)
     expect(parsed.reused).toBe(true)
     expect(JSON.stringify(parsed)).not.toContain("agent_key")

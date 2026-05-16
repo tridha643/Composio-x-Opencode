@@ -4,7 +4,7 @@ import { signUpAgent, whoAmI } from "../../src/auth/agent-api"
 import { UserFacingError } from "../../src/auth/errors"
 
 type FetchCall = {
-  url: URL | RequestInfo
+  url: Parameters<typeof fetch>[0]
   init?: RequestInit
 }
 
@@ -33,8 +33,10 @@ function jsonResponse(body: unknown, init: ResponseInit = {}) {
 
 function createFetch(response: Response) {
   const calls: FetchCall[] = []
-  const fetchImpl = (async (url: URL | RequestInfo, init?: RequestInit) => {
-    calls.push({ url, init })
+  const fetchImpl = (async (url: Parameters<typeof fetch>[0], init?: RequestInit) => {
+    const call: FetchCall = { url }
+    if (init !== undefined) call.init = init
+    calls.push(call)
     return response.clone()
   }) as typeof fetch
 
