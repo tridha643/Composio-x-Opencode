@@ -21,15 +21,31 @@ export class UserFacingError extends Error {
   }
 }
 
+function scrubToolErrorDetails(value: unknown, knownSecrets: readonly string[] = []): unknown {
+  if (typeof value === "string") return redactString(value, knownSecrets).replace(/authorization/gi, "[REDACTED]")
+  if (Array.isArray(value)) return value.map((entry) => scrubToolErrorDetails(entry, knownSecrets))
+  if (!value || typeof value !== "object" || value instanceof Error) return redactSecrets(value, knownSecrets)
+
+  return Object.fromEntries(
+    Object.entries(value as Record<string, unknown>)
+      .filter(([key]) =>
+        !/(agent[_-]?key|api[_-]?key|user[_-]?api[_-]?key|invite[_-]?code|authorization|token|secret|password)/i.test(
+          key,
+        ),
+      )
+      .map(([key, entry]) => [key, scrubToolErrorDetails(entry, knownSecrets)]),
+  )
+}
+
 export function toToolErrorPayload(error: unknown, knownSecrets: readonly string[] = []): ToolErrorPayload {
   if (error instanceof UserFacingError) {
     const payload: ToolErrorPayload = {
       ok: false,
       code: error.code,
-      message: redactString(error.message, knownSecrets),
+      message: redactString(error.message, knownSecrets).replace(/authorization/gi, "[REDACTED]"),
     }
     if (error.details !== undefined) {
-      payload.details = redactSecrets(error.details, knownSecrets)
+      payload.details = scrubToolErrorDetails(error.details, knownSecrets)
     }
     return payload
   }
@@ -38,7 +54,7 @@ export function toToolErrorPayload(error: unknown, knownSecrets: readonly string
     return {
       ok: false,
       code: "UNKNOWN_ERROR",
-      message: redactString(error.message || "Unexpected error", knownSecrets),
+      message: redactString(error.message || "Unexpected error", knownSecrets).replace(/authorization/gi, "[REDACTED]"),
     }
   }
 
@@ -46,6 +62,6 @@ export function toToolErrorPayload(error: unknown, knownSecrets: readonly string
     ok: false,
     code: "UNKNOWN_ERROR",
     message: "Unexpected error",
-    details: redactSecrets(error, knownSecrets),
+    details: scrubToolErrorDetails(redactSecrets(error, knownSecrets), knownSecrets),
   }
 }
