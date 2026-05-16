@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-05-15)
 ## Current Position
 
 Phase: 1 of 8 (Package Skeleton & opencode Registration)  
-Plan: 2 of 3 in current phase  
-Status: In progress  
-Last activity: 2026-05-16 — Completed Phase 1 Plan 02 static opencode tool registration with 17 network-free placeholder tools and README namespace documentation.
+Plan: 3 of 3 in current phase  
+Status: Phase complete  
+Last activity: 2026-05-16 — Completed Phase 1 Plan 03 verification coverage, local build-load test, opencode config example, and smoke:local path.
 
-Progress: [███████░░░] 67%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 2
+- Total plans completed: 3
 - Average duration: 2 min
-- Total execution time: 0.07 hours
+- Total execution time: 0.10 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-package-skeleton-opencode-registration | 2 | 4 min | 2 min |
+| 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 3 min
-- Trend: Phase 1 velocity stable
+- Last 5 plans: 1 min, 3 min, 2 min
+- Trend: Phase 1 complete with stable execution velocity
 
 *Updated after each plan completion*
 
@@ -50,6 +50,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01-package-skeleton-opencode-registration]: Registered the final v1 opencode-visible namespace from a static manifest rather than Composio discovery or generated per-app tools.
 - [Phase 01-package-skeleton-opencode-registration]: Kept save_automation_definition as the only non-composio_ public tool name for Pi-compatible automation handoff.
 - [Phase 01-package-skeleton-opencode-registration]: Returned JSON-stringified structured placeholder results to match opencode ToolResult while preserving machine-readable metadata.
+- [Phase 01-package-skeleton-opencode-registration]: Treat dist/index.js as the integration/smoke source of truth for local load verification while comparing it against the static source manifest.
+- [Phase 01-package-skeleton-opencode-registration]: Keep examples/opencode.local.jsonc copy-only and do not mutate user opencode configuration automatically.
+- [Phase 01-package-skeleton-opencode-registration]: Keep smoke:local local-only and network-free; it imports built output and asserts the fixed registry.
 
 ### Pending Todos
 
@@ -66,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 01-package-skeleton-opencode-registration-02-PLAN.md  
+Stopped at: Completed 01-package-skeleton-opencode-registration-03-PLAN.md  
 Resume file: None
