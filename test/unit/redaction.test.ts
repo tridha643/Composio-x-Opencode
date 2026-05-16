@@ -93,8 +93,7 @@ describe("UserFacingError", () => {
       code: "AUTH_FAILED",
       message: "Authentication failed",
       details: {
-        api_key: "[REDACTED]",
-        body: "Authorization: [REDACTED]",
+        body: "[REDACTED]: [REDACTED]",
       },
     })
     expectNoSentinels(payload)
