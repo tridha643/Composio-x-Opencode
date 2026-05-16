@@ -66,7 +66,7 @@ export function createClaimTool(options: CreateClaimToolOptions = {}): ToolDefin
 
   return tool({
     description:
-      "Request handoff of the anonymous Composio organization to a human email. Returns invite status and next steps without secrets.",
+      "Request handoff of the anonymous Composio identity to a human email. Use /composio-claim <email> for the slash-command path; returns invite status and next steps without secrets.",
     args: {
       email: tool.schema.string(),
     },

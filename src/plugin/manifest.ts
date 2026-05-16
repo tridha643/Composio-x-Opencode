@@ -41,21 +41,24 @@ export const COMPOSIO_TOOL_NAMES = [
 export const COMPOSIO_TOOL_MANIFEST = [
   {
     name: "composio_debug_info",
-    description: "Show composio-x-opencode registration diagnostics without contacting Composio.",
+    description:
+      "Show redacted composio-x-opencode runtime, auth-source, handoff, and registered-tool diagnostics without contacting Composio.",
     category: "diagnostics",
     risk: "safe",
     phase: 1,
   },
   {
     name: "composio_signup",
-    description: "Provision first-use anonymous Composio credentials in a later phase.",
+    description:
+      "Provision or reuse first-use anonymous Composio credentials through the official agent signup flow with redacted output.",
     category: "auth",
     risk: "auth",
     phase: 2,
   },
   {
     name: "composio_claim",
-    description: "Request organization handoff for an anonymous Composio identity in a later phase.",
+    description:
+      "Request email handoff for an anonymous Composio identity; use /composio-claim <email> for the slash-command path.",
     category: "auth",
     risk: "auth",
     phase: 2,

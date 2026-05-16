@@ -65,7 +65,7 @@ describe("default opencode plugin export", () => {
     expect(Object.keys(hooks.tool ?? {})).toEqual([...COMPOSIO_TOOL_NAMES])
   })
 
-  test("composio_debug_info returns registered tool names without credentials", async () => {
+  test("composio_debug_info returns redacted auth metadata without credentials", async () => {
     const { hooks, fetchCalls } = await loadPluginWithFetchGuard()
     const debugTool = hooks.tool?.composio_debug_info as ToolDefinition | undefined
 
@@ -79,8 +79,44 @@ describe("default opencode plugin export", () => {
     const output = typeof result === "string" ? result : result?.output
     const parsed = JSON.parse(output ?? "{}")
 
-    expect(parsed.ok).toBe(true)
-    expect(parsed.registered).toBe(true)
+    expect(parsed.auth).toMatchObject({
+      apiKeyPresent: expect.any(Boolean),
+      envKeyPrecedence: expect.any(Boolean),
+      anonymousDataPresent: expect.any(Boolean),
+    })
+    expect(parsed.handoff).toMatchObject({
+      tool: "composio_claim",
+      command: "/composio-claim <email>",
+      anonymousIdentityPresent: expect.any(Boolean),
+    })
     expect(parsed.registeredTools).toEqual([...COMPOSIO_TOOL_NAMES])
+    expect(parsed.redaction).toEqual({ enabled: true, secretValuesPrinted: false })
+    expect(JSON.stringify(parsed)).not.toContain("COMPOSIO_API_KEY")
+    expect(JSON.stringify(parsed)).not.toContain("api_key")
+  })
+
+  test("signup and claim are real Phase 2 tools while future tools remain placeholders", async () => {
+    const { hooks } = await loadPluginWithFetchGuard()
+    const signupTool = hooks.tool?.composio_signup as ToolDefinition | undefined
+    const claimTool = hooks.tool?.composio_claim as ToolDefinition | undefined
+    const futureTool = hooks.tool?.composio_search_tools as ToolDefinition | undefined
+
+    expect(signupTool?.description).toContain("official agent signup flow")
+    expect(claimTool?.description).toContain("anonymous Composio identity")
+
+    const signupResult = await signupTool?.execute({}, createToolContext())
+    const claimResult = await claimTool?.execute({ email: "owner@example.com" }, createToolContext())
+    const futureResult = await futureTool?.execute({}, createToolContext())
+    const signupParsed = JSON.parse(typeof signupResult === "string" ? signupResult : signupResult?.output ?? "{}")
+    const claimParsed = JSON.parse(typeof claimResult === "string" ? claimResult : claimResult?.output ?? "{}")
+    const futureParsed = JSON.parse(typeof futureResult === "string" ? futureResult : futureResult?.output ?? "{}")
+
+    expect(signupParsed.code).not.toBe("not_implemented_in_phase_1")
+    expect(claimParsed.code).not.toBe("not_implemented_in_phase_1")
+    expect(futureParsed).toMatchObject({
+      ok: false,
+      code: "not_implemented_in_phase_1",
+      tool: "composio_search_tools",
+    })
   })
 })
