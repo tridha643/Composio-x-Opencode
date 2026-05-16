@@ -18,20 +18,20 @@ Requirements for initial release. Each maps to roadmap phases.
 ### Runtime Registration
 
 - [ ] **RUNT-01**: opencode loads the extension and registers all Composio tools without requiring network calls during plugin initialization.
-- [ ] **RUNT-02**: User can run `composio_debug_info` to see extension version, auth source, handoff path, and registered tool names with secrets redacted.
+- [x] **RUNT-02**: User can run `composio_debug_info` to see extension version, auth source, handoff path, and registered tool names with secrets redacted.
 - [ ] **RUNT-03**: Extension tool names are stable, lowercase, prefixed with `composio_`, and documented.
 - [ ] **RUNT-04**: Extension tool descriptions clearly mark destructive/open-world tools.
 
 ### Authentication & Signup
 
-- [ ] **AUTH-01**: Extension resolves credentials from `COMPOSIO_API_KEY` when present.
-- [ ] **AUTH-02**: Extension falls back to `~/.composio/anonymous_user_data.json` when `COMPOSIO_API_KEY` is absent.
-- [ ] **AUTH-03**: User can call `composio_signup` to provision a Composio identity with no prior setup.
-- [ ] **AUTH-04**: `composio_signup` writes returned anonymous credentials to `~/.composio/anonymous_user_data.json` with restrictive file permissions where supported.
-- [ ] **AUTH-05**: Missing-credential failures guide the agent to call `composio_signup`.
-- [ ] **AUTH-06**: User can call `composio_claim` with an email to request handoff of the auto-provisioned Composio org.
-- [ ] **AUTH-07**: User can run `/composio-claim <email>` as a human-facing opencode command path.
-- [ ] **AUTH-08**: Debug output, errors, tests, and logs never expose raw API keys or anonymous credential secrets.
+- [x] **AUTH-01**: Extension resolves credentials from `COMPOSIO_API_KEY` when present.
+- [x] **AUTH-02**: Extension falls back to `~/.composio/anonymous_user_data.json` when `COMPOSIO_API_KEY` is absent.
+- [x] **AUTH-03**: User can call `composio_signup` to provision a Composio identity with no prior setup.
+- [x] **AUTH-04**: `composio_signup` writes returned anonymous credentials to `~/.composio/anonymous_user_data.json` with restrictive file permissions where supported.
+- [x] **AUTH-05**: Missing-credential failures guide the agent to call `composio_signup`.
+- [x] **AUTH-06**: User can call `composio_claim` with an email to request handoff of the auto-provisioned Composio org.
+- [x] **AUTH-07**: User can run `/composio-claim <email>` as a human-facing opencode command path.
+- [x] **AUTH-08**: Debug output, errors, tests, and logs never expose raw API keys or anonymous credential secrets.
 
 ### Composio Meta Tools
 
@@ -126,17 +126,17 @@ Which phases cover which requirements. Updated during roadmap creation.
 | PKG-04 | Phase 1 | Pending |
 | PKG-05 | Phase 8 | Pending |
 | RUNT-01 | Phase 1 | Pending |
-| RUNT-02 | Phase 2 | Pending |
+| RUNT-02 | Phase 2 | Satisfied |
 | RUNT-03 | Phase 1 | Pending |
 | RUNT-04 | Phase 3 | Pending |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
-| AUTH-03 | Phase 2 | Pending |
-| AUTH-04 | Phase 2 | Pending |
-| AUTH-05 | Phase 2 | Pending |
-| AUTH-06 | Phase 2 | Pending |
-| AUTH-07 | Phase 2 | Pending |
-| AUTH-08 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Satisfied |
+| AUTH-02 | Phase 2 | Satisfied |
+| AUTH-03 | Phase 2 | Satisfied |
+| AUTH-04 | Phase 2 | Satisfied |
+| AUTH-05 | Phase 2 | Satisfied |
+| AUTH-06 | Phase 2 | Satisfied |
+| AUTH-07 | Phase 2 | Satisfied |
+| AUTH-08 | Phase 2 | Satisfied |
 | META-01 | Phase 3 | Pending |
 | META-02 | Phase 3 | Pending |
 | META-03 | Phase 3 | Pending |
@@ -178,4 +178,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-15*  
-*Last updated: 2026-05-15 after roadmap revision for native trigger tool registration*
+*Last updated: 2026-05-16 after Phase 2 completion and live signup/claim verification*

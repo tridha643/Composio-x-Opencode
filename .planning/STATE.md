@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-05-15)
 
 **Core value:** An opencode agent can use Composio’s full meta-tool and trigger-authoring surface with no manual setup, including first-use signup, tool execution, trigger creation, and automation handoff.  
-**Current focus:** Phase 2 complete — ready for Phase 3 meta-tool execution planning
+**Current focus:** Phase 3 — Composio Meta Tools & Safety Descriptions
 
 ## Current Position
 
-Phase: 2 of 8 (Credentials, Signup, Claim & Redacted Debug)  
-Plan: 4 of 4 in current phase  
-Status: Phase complete  
-Last activity: 2026-05-16 — Completed Phase 2 Plan 04 redacted debug diagnostics and real signup/claim/debug registry wiring.
+Phase: 3 of 8 (Composio Meta Tools & Safety Descriptions)  
+Plan: 0 of TBD in current phase  
+Status: Ready to plan  
+Last activity: 2026-05-16 — Completed Phase 2 execution and live-verified signup plus claim handoff against agents.composio.dev.
 
 Progress: [███░░░░░░░] 25%
 
@@ -68,6 +68,7 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02-credentials-signup-claim-redacted-debug]: Keep composio_debug_info fully local and network-free by resolving only env and anonymous-file metadata at execution time.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Expose credential presence booleans and auth source while never printing COMPOSIO_API_KEY, anonymous JSON secrets, raw headers, or secret-bearing field values.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Wire Phase 2 tools under the existing stable registry names and leave Phase 3+ tools as placeholders to avoid generated v2 surface area.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Live signup and claim handoff passed against agents.composio.dev using isolated temporary HOME directories; claim to tridhatriv@gmail.com returned invited status and secret-free next steps.
 
 ### Pending Todos
 
@@ -75,7 +76,6 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 
 ### Blockers/Concerns
 
-- [Phase 2]: Claim exact payloads and identity transitions need validation against live APIs or `composio-x-pi` source; signup has opt-in live contract coverage.
 - [Phase 3]: Meta-tool execution contract and response/error shapes need validation against current Composio tool-router/session APIs.
 - [Phase 4]: Native trigger tool registration plus trigger lifecycle filters, pagination, upsert idempotency, enable/disable status path, and delete response details need live/API-type validation.
 - [Phase 5]: Exact Pi-compatible automation handoff schema needs inspection from `composio-x-pi` README/code or canonical fixtures.
@@ -84,5 +84,5 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 02-credentials-signup-claim-redacted-debug-04-PLAN.md  
+Stopped at: Phase 2 complete and live verified; ready to plan Phase 3  
 Resume file: None

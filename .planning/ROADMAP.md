@@ -17,7 +17,7 @@ This v1 roadmap delivers `composio-x-opencode` as a publishable opencode plugin 
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Package Skeleton & opencode Registration** - Users/developers can load a stable local plugin with predictable tool names and no startup network calls.
-- [ ] **Phase 2: Credentials, Signup, Claim & Redacted Debug** - Users can provision, resolve, claim, and inspect Composio auth state without leaking secrets.
+- [x] **Phase 2: Credentials, Signup, Claim & Redacted Debug** - Users can provision, resolve, claim, and inspect Composio auth state without leaking secrets.
 - [ ] **Phase 3: Composio Meta Tools & Safety Descriptions** - Agents can discover, inspect, authenticate, execute, and use Composio remote capabilities through the six meta tools.
 - [ ] **Phase 4: Native Trigger Authoring & Lifecycle Tools** - Agents can use dedicated native opencode tools to discover trigger schemas and safely create/upsert, list, enable, disable, and delete trigger instances.
 - [ ] **Phase 5: Pi-Compatible Automation Handoff** - Agents can persist automation definitions to the Pi-compatible JSON handoff contract with path overrides.
@@ -60,8 +60,8 @@ Plans:
 Plans:
 - [x] 02-credentials-signup-claim-redacted-debug-01-PLAN.md — Create shared anonymous credential persistence, env-first auth resolution, signup guidance, and redaction primitives.
 - [x] 02-credentials-signup-claim-redacted-debug-02-PLAN.md — Implement official Composio anonymous signup/whoami flow, safe signup tool output, and opt-in live API contract test.
-- [ ] 02-credentials-signup-claim-redacted-debug-03-PLAN.md — Implement anonymous org claim/handoff plus a verifyable `/composio-claim <email>` command path/template.
-- [ ] 02-credentials-signup-claim-redacted-debug-04-PLAN.md — Wire real Phase 2 handlers into the plugin registry and replace placeholder diagnostics with redacted debug info.
+- [x] 02-credentials-signup-claim-redacted-debug-03-PLAN.md — Implement anonymous org claim/handoff plus a verifyable `/composio-claim <email>` command path/template.
+- [x] 02-credentials-signup-claim-redacted-debug-04-PLAN.md — Wire real Phase 2 handlers into the plugin registry and replace placeholder diagnostics with redacted debug info.
 
 ### Phase 3: Composio Meta Tools & Safety Descriptions
 **Goal**: Agents can use Composio’s complete v1 meta-tool surface inside opencode for discovery, schema lookup, connection management, multi-tool execution, remote bash, and remote workbench, with structured safe outputs.  
@@ -173,7 +173,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Package Skeleton & opencode Registration | 3/3 | Complete | 2026-05-16 |
-| 2. Credentials, Signup, Claim & Redacted Debug | 2/4 | In progress | - |
+| 2. Credentials, Signup, Claim & Redacted Debug | 4/4 | Complete | 2026-05-16 |
 | 3. Composio Meta Tools & Safety Descriptions | TBD | Not started | - |
 | 4. Native Trigger Authoring & Lifecycle Tools | TBD | Not started | - |
 | 5. Pi-Compatible Automation Handoff | TBD | Not started | - |
