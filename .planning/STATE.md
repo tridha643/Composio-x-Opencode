@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-05-15)
 ## Current Position
 
 Phase: 1 of 8 (Package Skeleton & opencode Registration)  
-Plan: 1 of 3 in current phase  
+Plan: 2 of 3 in current phase  
 Status: In progress  
-Last activity: 2026-05-16 — Completed Phase 1 Plan 01 package skeleton with Bun/TypeScript ESM metadata, build config, ignores, and version helper.
+Last activity: 2026-05-16 — Completed Phase 1 Plan 02 static opencode tool registration with 17 network-free placeholder tools and README namespace documentation.
 
-Progress: [███░░░░░░░] 33%
+Progress: [███████░░░] 67%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 1
-- Average duration: 1 min
-- Total execution time: 0.02 hours
+- Total plans completed: 2
+- Average duration: 2 min
+- Total execution time: 0.07 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
-| 01-package-skeleton-opencode-registration | 1 | 1 min | 1 min |
+| 01-package-skeleton-opencode-registration | 2 | 4 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min
-- Trend: Baseline established
+- Last 5 plans: 1 min, 3 min
+- Trend: Phase 1 velocity stable
 
 *Updated after each plan completion*
 
@@ -47,6 +47,9 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Roadmap]: Keep deferred v2 features out of v1 phase requirements.
 - [Phase 01-package-skeleton-opencode-registration]: Deferred @composio/core from Phase 1 dependencies to keep startup/install skeleton free of Composio runtime coupling.
 - [Phase 01-package-skeleton-opencode-registration]: Used tsup configuration as the package build source of truth while keeping typecheck as tsc --noEmit.
+- [Phase 01-package-skeleton-opencode-registration]: Registered the final v1 opencode-visible namespace from a static manifest rather than Composio discovery or generated per-app tools.
+- [Phase 01-package-skeleton-opencode-registration]: Kept save_automation_definition as the only non-composio_ public tool name for Pi-compatible automation handoff.
+- [Phase 01-package-skeleton-opencode-registration]: Returned JSON-stringified structured placeholder results to match opencode ToolResult while preserving machine-readable metadata.
 
 ### Pending Todos
 
@@ -63,5 +66,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 01-package-skeleton-opencode-registration-01-PLAN.md  
+Stopped at: Completed 01-package-skeleton-opencode-registration-02-PLAN.md  
 Resume file: None

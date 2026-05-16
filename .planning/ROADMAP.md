@@ -40,8 +40,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 **Plans:** 3 plans
 
 Plans:
-- [ ] 01-package-skeleton-opencode-registration-01-PLAN.md — Create the Bun/TypeScript ESM package skeleton, required scripts, build config, and version helper.
-- [ ] 01-package-skeleton-opencode-registration-02-PLAN.md — Register and document the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
+- [x] 01-package-skeleton-opencode-registration-01-PLAN.md — Create the Bun/TypeScript ESM package skeleton, required scripts, build config, and version helper.
+- [x] 01-package-skeleton-opencode-registration-02-PLAN.md — Register and document the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
 - [ ] 01-package-skeleton-opencode-registration-03-PLAN.md — Add naming/no-network tests, local build-load integration, opencode config example, and smoke script.
 
 ### Phase 2: Credentials, Signup, Claim & Redacted Debug
@@ -166,7 +166,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Package Skeleton & opencode Registration | TBD | Not started | - |
+| 1. Package Skeleton & opencode Registration | 2/3 | In progress | - |
 | 2. Credentials, Signup, Claim & Redacted Debug | TBD | Not started | - |
 | 3. Composio Meta Tools & Safety Descriptions | TBD | Not started | - |
 | 4. Native Trigger Authoring & Lifecycle Tools | TBD | Not started | - |
