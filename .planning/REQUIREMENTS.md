@@ -50,7 +50,7 @@ Requirements for initial release. Each maps to roadmap phases.
 - [ ] **TRIG-02**: Agent can call `composio_get_trigger_type_schema` to inspect trigger configuration schema before creating a trigger.
 - [ ] **TRIG-03**: Agent can call `composio_create_trigger` to create or update a trigger via Composio trigger upsert.
 - [ ] **TRIG-04**: Agent can call `composio_list_triggers` to inspect existing trigger instances.
-- [ ] **TRIG-05**: Agent can enable or disable a trigger instance via Composio trigger management API.
+- [ ] **TRIG-05**: Agent can call native opencode tools `composio_enable_trigger` and `composio_disable_trigger` to enable or disable a trigger instance via the Composio trigger management status path.
 - [ ] **TRIG-06**: Agent can call `composio_delete_trigger` to permanently delete a trigger instance by exact trigger ID.
 - [ ] **TRIG-07**: Trigger delete requires explicit trigger ID and clear destructive intent in the tool schema/description.
 - [ ] **TRIG-08**: Trigger tools surface connected-account requirements clearly.
@@ -120,12 +120,62 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
+| PKG-01 | Phase 8 | Pending |
+| PKG-02 | Phase 1 | Pending |
+| PKG-03 | Phase 1 | Pending |
+| PKG-04 | Phase 1 | Pending |
+| PKG-05 | Phase 8 | Pending |
+| RUNT-01 | Phase 1 | Pending |
+| RUNT-02 | Phase 2 | Pending |
+| RUNT-03 | Phase 1 | Pending |
+| RUNT-04 | Phase 3 | Pending |
+| AUTH-01 | Phase 2 | Pending |
+| AUTH-02 | Phase 2 | Pending |
+| AUTH-03 | Phase 2 | Pending |
+| AUTH-04 | Phase 2 | Pending |
+| AUTH-05 | Phase 2 | Pending |
+| AUTH-06 | Phase 2 | Pending |
+| AUTH-07 | Phase 2 | Pending |
+| AUTH-08 | Phase 2 | Pending |
+| META-01 | Phase 3 | Pending |
+| META-02 | Phase 3 | Pending |
+| META-03 | Phase 3 | Pending |
+| META-04 | Phase 3 | Pending |
+| META-05 | Phase 3 | Pending |
+| META-06 | Phase 3 | Pending |
+| META-07 | Phase 3 | Pending |
+| META-08 | Phase 3 | Pending |
+| TRIG-01 | Phase 4 | Pending |
+| TRIG-02 | Phase 4 | Pending |
+| TRIG-03 | Phase 4 | Pending |
+| TRIG-04 | Phase 4 | Pending |
+| TRIG-05 | Phase 4 | Pending |
+| TRIG-06 | Phase 4 | Pending |
+| TRIG-07 | Phase 4 | Pending |
+| TRIG-08 | Phase 4 | Pending |
+| AUTO-01 | Phase 5 | Pending |
+| AUTO-02 | Phase 5 | Pending |
+| AUTO-03 | Phase 5 | Pending |
+| AUTO-04 | Phase 5 | Pending |
+| AUTO-05 | Phase 5 | Pending |
+| AUTO-06 | Phase 5 | Pending |
+| AUTO-07 | Phase 5 | Pending |
+| DOCS-01 | Phase 6 | Pending |
+| DOCS-02 | Phase 6 | Pending |
+| DOCS-03 | Phase 6 | Pending |
+| DOCS-04 | Phase 6 | Pending |
+| DOCS-05 | Phase 6 | Pending |
+| TEST-01 | Phase 7 | Pending |
+| TEST-02 | Phase 7 | Pending |
+| TEST-03 | Phase 7 | Pending |
+| TEST-04 | Phase 7 | Pending |
 
 **Coverage:**
-- v1 requirements: 54 total
-- Mapped to phases: 0
-- Unmapped: 54 ⚠️
+- v1 requirements: 49 total
+- Mapped to phases: 49
+- Unmapped: 0 ✓
+- Duplicate mappings: 0 ✓
 
 ---
 *Requirements defined: 2026-05-15*  
-*Last updated: 2026-05-15 after initial definition*
+*Last updated: 2026-05-15 after roadmap revision for native trigger tool registration*
