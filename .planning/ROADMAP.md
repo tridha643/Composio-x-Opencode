@@ -37,7 +37,12 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Registered tool names are stable, lowercase, prefixed/namespaced as documented, and avoid opencode built-in collisions.
   4. Developer can run package scripts for test, typecheck, build, integration test, and local smoke test from the checkout.
 **Research notes**: Standard opencode plugin packaging and Bun/ESM setup; no extra research phase expected unless plugin API types differ during implementation.  
-**Plans**: TBD
+**Plans:** 3 plans
+
+Plans:
+- [ ] 01-package-skeleton-opencode-registration-01-PLAN.md — Create the Bun/TypeScript ESM package skeleton, required scripts, build config, and version helper.
+- [ ] 01-package-skeleton-opencode-registration-02-PLAN.md — Register the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
+- [ ] 01-package-skeleton-opencode-registration-03-PLAN.md — Add naming/no-network tests, local build-load integration, opencode config example, and smoke script.
 
 ### Phase 2: Credentials, Signup, Claim & Redacted Debug
 **Goal**: Users can use Composio with no manual setup, claim an anonymous Composio identity through tool or slash-command paths, and inspect runtime/auth state without exposing secrets.  
