@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Build and package outputs
+dist/
+*.tgz
+
+# Test outputs
+coverage/
+*.lcov
+
+# Temporary files
+.DS_Store
+tmp/
+temp/
+*.tmp
+*.log
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Composio anonymous credentials and local automation handoff files
+anonymous_user_data.json
+.composio/anonymous_user_data.json
+composio-automations.json
+**/composio-automations.json
