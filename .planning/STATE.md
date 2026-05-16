@@ -10,29 +10,29 @@ See: .planning/PROJECT.md (updated 2026-05-15)
 ## Current Position
 
 Phase: 2 of 8 (Credentials, Signup, Claim & Redacted Debug)  
-Plan: 1 of 4 in current phase  
+Plan: 2 of 4 in current phase  
 Status: In progress  
-Last activity: 2026-05-16 — Completed Phase 2 Plan 01 auth foundation with credential resolution, anonymous persistence, and redaction primitives.
+Last activity: 2026-05-16 — Completed Phase 2 Plan 02 official agent signup/whoami flow, idempotent anonymous persistence, and redacted signup tool factory.
 
-Progress: [██░░░░░░░░] 14%
+Progress: [██░░░░░░░░] 18%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
-- Average duration: 2 min
-- Total execution time: 0.15 hours
+- Total plans completed: 5
+- Average duration: 3 min
+- Total execution time: 0.23 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
-| 02-credentials-signup-claim-redacted-debug | 1 | 3 min | 3 min |
+| 02-credentials-signup-claim-redacted-debug | 2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 3 min, 2 min, 3 min
-- Trend: Phase 2 auth foundation started with stable execution velocity
+- Last 5 plans: 1 min, 3 min, 2 min, 3 min, 5 min
+- Trend: Phase 2 auth implementation remains fast while adding live-gated API validation
 
 *Updated after each plan completion*
 
@@ -57,14 +57,18 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02-credentials-signup-claim-redacted-debug]: Kept COMPOSIO_API_KEY as the highest-precedence credential source while reporting anonymous-data presence only as non-secret debug metadata.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Used ~/.composio/anonymous_user_data.json as the only default anonymous credential location, matching Composio/Pi compatibility requirements.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Centralized redaction in src/auth/redact.ts so later signup, claim, debug, and runtime tools do not implement ad hoc secret replacement.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Used direct fetch wrappers for official agents.composio.dev signup/whoami endpoints and did not add @composio/core.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Exposed only wait?: boolean for signup, mapping wait=false to official wait=0 and intentionally omitting undocumented force support.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Made existing anonymous credential reuse conditional on whoami readiness plus a persisted usable composio.api_key, while returning only redacted summaries.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Kept live signup verification opt-in behind RUN_COMPOSIO_LIVE_AGENT_TESTS=1 with isolated temporary HOME.
 
 ### Pending Todos
 
-- [Phase 2]: Execute remaining signup, claim, and redacted debug wiring plans.
+- [Phase 2]: Execute remaining claim and redacted debug/registry wiring plans.
 
 ### Blockers/Concerns
 
-- [Phase 2]: Signup/claim exact payloads and identity transitions need validation against live APIs or `composio-x-pi` source.
+- [Phase 2]: Claim exact payloads and identity transitions need validation against live APIs or `composio-x-pi` source; signup has opt-in live contract coverage.
 - [Phase 3]: Meta-tool execution contract and response/error shapes need validation against current Composio tool-router/session APIs.
 - [Phase 4]: Native trigger tool registration plus trigger lifecycle filters, pagination, upsert idempotency, enable/disable status path, and delete response details need live/API-type validation.
 - [Phase 5]: Exact Pi-compatible automation handoff schema needs inspection from `composio-x-pi` README/code or canonical fixtures.
@@ -73,5 +77,5 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Completed 02-credentials-signup-claim-redacted-debug-01-PLAN.md  
+Stopped at: Completed 02-credentials-signup-claim-redacted-debug-02-PLAN.md  
 Resume file: None

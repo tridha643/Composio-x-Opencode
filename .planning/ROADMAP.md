@@ -59,7 +59,7 @@ Plans:
 
 Plans:
 - [x] 02-credentials-signup-claim-redacted-debug-01-PLAN.md — Create shared anonymous credential persistence, env-first auth resolution, signup guidance, and redaction primitives.
-- [ ] 02-credentials-signup-claim-redacted-debug-02-PLAN.md — Implement official Composio anonymous signup/whoami flow, safe signup tool output, and opt-in live API contract test.
+- [x] 02-credentials-signup-claim-redacted-debug-02-PLAN.md — Implement official Composio anonymous signup/whoami flow, safe signup tool output, and opt-in live API contract test.
 - [ ] 02-credentials-signup-claim-redacted-debug-03-PLAN.md — Implement anonymous org claim/handoff plus a verifyable `/composio-claim <email>` command path/template.
 - [ ] 02-credentials-signup-claim-redacted-debug-04-PLAN.md — Wire real Phase 2 handlers into the plugin registry and replace placeholder diagnostics with redacted debug info.
 
@@ -173,7 +173,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Package Skeleton & opencode Registration | 3/3 | Complete | 2026-05-16 |
-| 2. Credentials, Signup, Claim & Redacted Debug | 1/4 | In progress | - |
+| 2. Credentials, Signup, Claim & Redacted Debug | 2/4 | In progress | - |
 | 3. Composio Meta Tools & Safety Descriptions | TBD | Not started | - |
 | 4. Native Trigger Authoring & Lifecycle Tools | TBD | Not started | - |
 | 5. Pi-Compatible Automation Handoff | TBD | Not started | - |
