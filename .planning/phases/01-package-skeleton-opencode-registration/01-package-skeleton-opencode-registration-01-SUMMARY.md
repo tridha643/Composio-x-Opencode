@@ -60,7 +60,7 @@ Each task was committed atomically:
 2. **Task 2: Add strict TypeScript and tsup build configuration** - `b64d556` (chore)
 3. **Task 3: Add repository ignores and package version helper** - `8642691` (chore)
 
-**Plan metadata:** pending final docs commit
+**Plan metadata:** `ce529c8` (docs/state metadata commit)
 
 ## Files Created/Modified
 
