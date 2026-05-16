@@ -1,8 +1,11 @@
 import { afterEach, describe, expect, test } from "bun:test"
-import type { PluginInput, ToolDefinition } from "@opencode-ai/plugin"
+import type { Plugin, PluginInput, ToolDefinition } from "@opencode-ai/plugin"
 
 import plugin from "../../src/index"
 import { COMPOSIO_TOOL_NAMES } from "../../src/plugin/manifest"
+
+const ORIGINAL_FETCH = globalThis.fetch
+const typedPlugin = plugin as Plugin
 
 function createPluginInput(): PluginInput {
   return {
@@ -14,7 +17,7 @@ function createPluginInput(): PluginInput {
       register() {},
     },
     serverUrl: new URL("http://localhost"),
-    $: (() => {}) as PluginInput["$"],
+    $: (() => {}) as unknown as PluginInput["$"],
   }
 }
 
@@ -38,10 +41,10 @@ async function loadPluginWithFetchGuard() {
   globalThis.fetch = ((...args: Parameters<typeof fetch>) => {
     fetchCalls.push(args)
     throw new Error("Plugin initialization must not call fetch")
-  }) as typeof fetch
+  }) as unknown as typeof fetch
 
   try {
-    const hooks = await plugin(createPluginInput())
+    const hooks = await typedPlugin(createPluginInput())
     return { hooks, fetchCalls }
   } finally {
     globalThis.fetch = originalFetch
@@ -50,7 +53,7 @@ async function loadPluginWithFetchGuard() {
 
 afterEach(() => {
   // Keep later tests insulated if an assertion throws before helper cleanup.
-  globalThis.fetch = fetch
+  globalThis.fetch = ORIGINAL_FETCH
 })
 
 describe("default opencode plugin export", () => {

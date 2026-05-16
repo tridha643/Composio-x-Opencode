@@ -16,7 +16,7 @@ function createPluginInput(): PluginInput {
       register() {},
     },
     serverUrl: new URL("http://localhost"),
-    $: (() => {}) as PluginInput["$"],
+    $: (() => {}) as unknown as PluginInput["$"],
   }
 }
 
@@ -33,8 +33,9 @@ describe("local build output", () => {
     }
 
     expect(builtModule.default).toBeFunction()
+    const builtPlugin = builtModule.default as Plugin
 
-    const hooks = await builtModule.default(createPluginInput())
+    const hooks = await builtPlugin(createPluginInput())
 
     expect(Object.keys(hooks.tool ?? {})).toEqual([...COMPOSIO_TOOL_NAMES])
   })
