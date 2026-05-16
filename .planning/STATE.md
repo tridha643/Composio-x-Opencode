@@ -10,28 +10,29 @@ See: .planning/PROJECT.md (updated 2026-05-15)
 ## Current Position
 
 Phase: 2 of 8 (Credentials, Signup, Claim & Redacted Debug)  
-Plan: 0 of TBD in current phase  
-Status: Ready to plan  
-Last activity: 2026-05-16 — Completed Phase 1 and verified real opencode local plugin loading via headless server tool registry check.
+Plan: 1 of 4 in current phase  
+Status: In progress  
+Last activity: 2026-05-16 — Completed Phase 2 Plan 01 auth foundation with credential resolution, anonymous persistence, and redaction primitives.
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██░░░░░░░░] 14%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 3
+- Total plans completed: 4
 - Average duration: 2 min
-- Total execution time: 0.10 hours
+- Total execution time: 0.15 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
+| 02-credentials-signup-claim-redacted-debug | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 3 min, 2 min
-- Trend: Phase 1 complete with stable execution velocity
+- Last 5 plans: 1 min, 3 min, 2 min, 3 min
+- Trend: Phase 2 auth foundation started with stable execution velocity
 
 *Updated after each plan completion*
 
@@ -53,10 +54,13 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 01-package-skeleton-opencode-registration]: Treat dist/index.js as the integration/smoke source of truth for local load verification while comparing it against the static source manifest.
 - [Phase 01-package-skeleton-opencode-registration]: Keep examples/opencode.local.jsonc copy-only and do not mutate user opencode configuration automatically.
 - [Phase 01-package-skeleton-opencode-registration]: Keep smoke:local local-only and network-free; it imports built output and asserts the fixed registry.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Kept COMPOSIO_API_KEY as the highest-precedence credential source while reporting anonymous-data presence only as non-secret debug metadata.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Used ~/.composio/anonymous_user_data.json as the only default anonymous credential location, matching Composio/Pi compatibility requirements.
+- [Phase 02-credentials-signup-claim-redacted-debug]: Centralized redaction in src/auth/redact.ts so later signup, claim, debug, and runtime tools do not implement ad hoc secret replacement.
 
 ### Pending Todos
 
-- [Phase 2]: Plan credentials/signup/claim/redacted debug implementation.
+- [Phase 2]: Execute remaining signup, claim, and redacted debug wiring plans.
 
 ### Blockers/Concerns
 
@@ -69,5 +73,5 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 ## Session Continuity
 
 Last session: 2026-05-16  
-Stopped at: Phase 1 complete; ready to plan Phase 2  
+Stopped at: Completed 02-credentials-signup-claim-redacted-debug-01-PLAN.md  
 Resume file: None
