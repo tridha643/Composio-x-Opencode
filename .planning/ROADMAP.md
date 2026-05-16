@@ -16,7 +16,7 @@ This v1 roadmap delivers `composio-x-opencode` as a publishable opencode plugin 
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Package Skeleton & opencode Registration** - Users/developers can load a stable local plugin with predictable tool names and no startup network calls.
+- [x] **Phase 1: Package Skeleton & opencode Registration** - Users/developers can load a stable local plugin with predictable tool names and no startup network calls.
 - [ ] **Phase 2: Credentials, Signup, Claim & Redacted Debug** - Users can provision, resolve, claim, and inspect Composio auth state without leaking secrets.
 - [ ] **Phase 3: Composio Meta Tools & Safety Descriptions** - Agents can discover, inspect, authenticate, execute, and use Composio remote capabilities through the six meta tools.
 - [ ] **Phase 4: Native Trigger Authoring & Lifecycle Tools** - Agents can use dedicated native opencode tools to discover trigger schemas and safely create/upsert, list, enable, disable, and delete trigger instances.
@@ -42,7 +42,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 Plans:
 - [x] 01-package-skeleton-opencode-registration-01-PLAN.md — Create the Bun/TypeScript ESM package skeleton, required scripts, build config, and version helper.
 - [x] 01-package-skeleton-opencode-registration-02-PLAN.md — Register and document the fixed v1 opencode tool namespace from a static, network-free plugin manifest.
-- [ ] 01-package-skeleton-opencode-registration-03-PLAN.md — Add naming/no-network tests, local build-load integration, opencode config example, and smoke script.
+- [x] 01-package-skeleton-opencode-registration-03-PLAN.md — Add naming/no-network tests, local build-load integration, opencode config example, and smoke script.
 
 ### Phase 2: Credentials, Signup, Claim & Redacted Debug
 **Goal**: Users can use Composio with no manual setup, claim an anonymous Composio identity through tool or slash-command paths, and inspect runtime/auth state without exposing secrets.  
@@ -166,7 +166,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Package Skeleton & opencode Registration | 2/3 | In progress | - |
+| 1. Package Skeleton & opencode Registration | 3/3 | Complete | 2026-05-16 |
 | 2. Credentials, Signup, Claim & Redacted Debug | TBD | Not started | - |
 | 3. Composio Meta Tools & Safety Descriptions | TBD | Not started | - |
 | 4. Native Trigger Authoring & Lifecycle Tools | TBD | Not started | - |
