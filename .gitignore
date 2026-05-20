@@ -24,5 +24,6 @@ temp/
 # Composio anonymous credentials and local automation handoff files
 anonymous_user_data.json
 .composio/anonymous_user_data.json
+composio-claim-report*.json
 composio-automations.json
 **/composio-automations.json

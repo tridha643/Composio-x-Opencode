@@ -1,4 +1,7 @@
 import { afterEach, describe, expect, test } from "bun:test"
+import { mkdtemp, rm } from "node:fs/promises"
+import { tmpdir } from "node:os"
+import { join } from "node:path"
 import type { Plugin, PluginInput, ToolDefinition } from "@opencode-ai/plugin"
 
 import plugin from "../../src/index"
@@ -95,28 +98,62 @@ describe("default opencode plugin export", () => {
     expect(JSON.stringify(parsed)).not.toContain("api_key")
   })
 
-  test("signup and claim are real Phase 2 tools while future tools remain placeholders", async () => {
+  test("signup, claim, Phase 3 meta tools, Phase 4 trigger tools, and handoff are real", async () => {
     const { hooks } = await loadPluginWithFetchGuard()
+    const dir = await mkdtemp(join(tmpdir(), "composio-x-opencode-plugin-"))
     const signupTool = hooks.tool?.composio_signup as ToolDefinition | undefined
     const claimTool = hooks.tool?.composio_claim as ToolDefinition | undefined
-    const futureTool = hooks.tool?.composio_search_tools as ToolDefinition | undefined
+    const metaTool = hooks.tool?.composio_search_tools as ToolDefinition | undefined
+    const triggerTool = hooks.tool?.composio_list_trigger_types as ToolDefinition | undefined
+    const handoffTool = hooks.tool?.save_automation_definition as ToolDefinition | undefined
 
-    expect(signupTool?.description).toContain("official agent signup flow")
-    expect(claimTool?.description).toContain("anonymous Composio identity")
+    try {
+      expect(signupTool?.description).toContain("official agent signup flow")
+      expect(claimTool?.description).toContain("anonymous Composio identity")
+      expect(metaTool?.description).toContain("Composio's tool catalog")
+      expect(triggerTool?.description).toContain("trigger types")
+      expect(handoffTool?.description).toContain("Pi-compatible automation definition")
 
-    const signupResult = await signupTool?.execute({}, createToolContext())
-    const claimResult = await claimTool?.execute({ email: "owner@example.com" }, createToolContext())
-    const futureResult = await futureTool?.execute({}, createToolContext())
-    const signupParsed = JSON.parse(typeof signupResult === "string" ? signupResult : signupResult?.output ?? "{}")
-    const claimParsed = JSON.parse(typeof claimResult === "string" ? claimResult : claimResult?.output ?? "{}")
-    const futureParsed = JSON.parse(typeof futureResult === "string" ? futureResult : futureResult?.output ?? "{}")
+      const signupResult = await signupTool?.execute({}, createToolContext())
+      const claimResult = await claimTool?.execute({ email: "owner@example.com" }, createToolContext())
+      globalThis.fetch = (async () => {
+        throw new Error("Phase 3 real tool test must not contact Composio")
+      }) as unknown as typeof fetch
+      const metaResult = await metaTool?.execute({ queries: [{ use_case: "send an email" }] }, createToolContext())
+      const triggerResult = await triggerTool?.execute({ toolkit_slugs: ["github"] }, createToolContext())
+      globalThis.fetch = ORIGINAL_FETCH
+      const handoffResult = await handoffTool?.execute(
+        {
+          name: "Plugin handoff",
+          triggerId: "trg_plugin",
+          triggerSlug: "PLUGIN_EVENT",
+          instructions: "Handle plugin event.",
+          filePath: join(dir, "automations.json"),
+        },
+        createToolContext(),
+      )
+      const signupParsed = JSON.parse(typeof signupResult === "string" ? signupResult : signupResult?.output ?? "{}")
+      const claimParsed = JSON.parse(typeof claimResult === "string" ? claimResult : claimResult?.output ?? "{}")
+      const metaParsed = JSON.parse(typeof metaResult === "string" ? metaResult : metaResult?.output ?? "{}")
+      const triggerParsed = JSON.parse(typeof triggerResult === "string" ? triggerResult : triggerResult?.output ?? "{}")
+      const handoffParsed = JSON.parse(typeof handoffResult === "string" ? handoffResult : handoffResult?.output ?? "{}")
 
-    expect(signupParsed.code).not.toBe("not_implemented_in_phase_1")
-    expect(claimParsed.code).not.toBe("not_implemented_in_phase_1")
-    expect(futureParsed).toMatchObject({
-      ok: false,
-      code: "not_implemented_in_phase_1",
-      tool: "composio_search_tools",
-    })
+      expect(signupParsed.code).not.toBe("not_implemented_in_phase_1")
+      expect(claimParsed.code).not.toBe("not_implemented_in_phase_1")
+      expect(metaParsed.code).not.toBe("not_implemented_in_phase_1")
+      expect(triggerParsed.code).not.toBe("not_implemented_in_phase_1")
+      expect(handoffParsed).toMatchObject({
+        ok: true,
+        operation: "inserted",
+        automation: {
+          name: "Plugin handoff",
+          triggerId: "trg_plugin",
+          triggerSlug: "PLUGIN_EVENT",
+        },
+      })
+    } finally {
+      globalThis.fetch = ORIGINAL_FETCH
+      await rm(dir, { recursive: true, force: true })
+    }
   })
 })

@@ -6,7 +6,7 @@ export type ComposioToolCategory =
   | "trigger"
   | "handoff"
 
-export type ComposioToolRisk = "safe" | "auth" | "network" | "open_world" | "destructive"
+export type ComposioToolRisk = "safe" | "auth" | "network" | "open_world" | "destructive" | "local_write"
 
 export type ComposioToolName = (typeof COMPOSIO_TOOL_NAMES)[number]
 
@@ -65,100 +65,106 @@ export const COMPOSIO_TOOL_MANIFEST = [
   },
   {
     name: "composio_search_tools",
-    description: "Search Composio's available tools through the meta-tool runtime in a later phase.",
+    description:
+      "Search Composio's tool catalog for use cases, returning tool slugs, schemas, connection status, and execution guidance.",
     category: "meta",
     risk: "network",
     phase: 3,
   },
   {
     name: "composio_get_tool_schemas",
-    description: "Fetch Composio tool schemas before execution in a later phase.",
+    description: "Fetch exact Composio tool schemas for known tool slugs before execution.",
     category: "meta",
     risk: "network",
     phase: 3,
   },
   {
     name: "composio_manage_connections",
-    description: "Inspect or initiate Composio connected-account flows in a later phase.",
+    description:
+      "Inspect or initiate Composio connected-account auth flows; may create OAuth/API-key links or reinitiate connections.",
     category: "meta",
     risk: "auth",
     phase: 3,
   },
   {
     name: "composio_multi_execute_tool",
-    description: "Execute one or more Composio tools through structured meta-tool calls in a later phase.",
+    description:
+      "Execute one or more third-party Composio app tools; may mutate external service state and should follow schema lookup.",
     category: "meta",
     risk: "network",
     phase: 3,
   },
   {
     name: "composio_remote_bash_tool",
-    description: "Run explicitly remote/open-world Composio bash capability in a later phase.",
+    description:
+      "Run bash in Composio's remote sandbox, not locally; open-world remote code execution for file/data processing.",
     category: "remote",
     risk: "open_world",
     phase: 3,
   },
   {
     name: "composio_remote_workbench",
-    description: "Use explicitly remote/open-world Composio workbench capability in a later phase.",
+    description:
+      "Run Python in Composio's persistent remote workbench sandbox, not locally; open-world remote code execution.",
     category: "remote",
     risk: "open_world",
     phase: 3,
   },
   {
     name: "composio_list_trigger_types",
-    description: "List Composio trigger types available for authoring in a later phase.",
+    description: "List Composio trigger types for schema-first authoring, with toolkit/version filters and pagination.",
     category: "trigger",
     risk: "network",
     phase: 4,
   },
   {
     name: "composio_get_trigger_type_schema",
-    description: "Inspect the configuration schema for a Composio trigger type in a later phase.",
+    description: "Inspect the exact configuration and payload schema for a selected Composio trigger type before creation.",
     category: "trigger",
     risk: "network",
     phase: 4,
   },
   {
     name: "composio_create_trigger",
-    description: "Create or upsert a Composio trigger instance in a later phase.",
+    description: "Create or upsert a Composio trigger instance and return trigger ID plus connected-account guidance.",
     category: "trigger",
     risk: "network",
     phase: 4,
   },
   {
     name: "composio_list_triggers",
-    description: "List existing Composio trigger instances in a later phase.",
+    description: "List existing Composio trigger instances with IDs, slugs/names, status, versions, and account references.",
     category: "trigger",
     risk: "network",
     phase: 4,
   },
   {
     name: "composio_enable_trigger",
-    description: "Enable an exact Composio trigger instance in a later phase.",
+    description: "Enable an exact Composio trigger instance by trigger ID, resuming event delivery for automations.",
     category: "trigger",
     risk: "destructive",
     phase: 4,
   },
   {
     name: "composio_disable_trigger",
-    description: "Disable an exact Composio trigger instance in a later phase.",
+    description: "Disable an exact Composio trigger instance by trigger ID, pausing events without deleting it.",
     category: "trigger",
     risk: "destructive",
     phase: 4,
   },
   {
     name: "composio_delete_trigger",
-    description: "Permanently delete an exact Composio trigger instance in a later phase.",
+    description: "Permanently delete an exact Composio trigger instance by trigger ID; destructive and irreversible.",
     category: "trigger",
     risk: "destructive",
     phase: 4,
   },
   {
     name: "save_automation_definition",
-    description: "Persist Pi-compatible automation handoff metadata in a later phase.",
+    description:
+      "Persist Pi-compatible automation handoff metadata to a local JSON file, upserting by trigger ID.",
     category: "handoff",
-    risk: "network",
+    risk: "local_write",
     phase: 5,
   },
 ] as const satisfies readonly ComposioToolManifestEntry[]

@@ -9,18 +9,18 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Packaging & Installation
 
-- [ ] **PKG-01**: User can install `composio-x-opencode` as an opencode plugin from npm.
-- [ ] **PKG-02**: Developer can run the extension from a local checkout for development and smoke testing.
-- [ ] **PKG-03**: Package exposes a valid opencode plugin entrypoint compatible with `@opencode-ai/plugin`.
-- [ ] **PKG-04**: Package includes scripts for test, typecheck, build, integration test, and local smoke test.
-- [ ] **PKG-05**: Package can be validated before publish with typecheck, build, test, and npm pack inspection.
+- [x] **PKG-01**: User can install `composio-x-opencode` as an opencode plugin from npm.
+- [x] **PKG-02**: Developer can run the extension from a local checkout for development and smoke testing.
+- [x] **PKG-03**: Package exposes a valid opencode plugin entrypoint compatible with `@opencode-ai/plugin`.
+- [x] **PKG-04**: Package includes scripts for test, typecheck, build, integration test, and local smoke test.
+- [x] **PKG-05**: Package can be validated before publish with typecheck, build, test, and npm pack inspection.
 
 ### Runtime Registration
 
-- [ ] **RUNT-01**: opencode loads the extension and registers all Composio tools without requiring network calls during plugin initialization.
+- [x] **RUNT-01**: opencode loads the extension and registers all Composio tools without requiring network calls during plugin initialization.
 - [x] **RUNT-02**: User can run `composio_debug_info` to see extension version, auth source, handoff path, and registered tool names with secrets redacted.
-- [ ] **RUNT-03**: Extension tool names are stable, lowercase, prefixed with `composio_`, and documented.
-- [ ] **RUNT-04**: Extension tool descriptions clearly mark destructive/open-world tools.
+- [x] **RUNT-03**: Extension tool names are stable, lowercase, prefixed with `composio_`, and documented.
+- [x] **RUNT-04**: Extension tool descriptions clearly mark destructive/open-world tools.
 
 ### Authentication & Signup
 
@@ -35,47 +35,47 @@ Requirements for initial release. Each maps to roadmap phases.
 
 ### Composio Meta Tools
 
-- [ ] **META-01**: Agent can call `composio_search_tools` to discover Composio tools by use case.
-- [ ] **META-02**: Agent can call `composio_get_tool_schemas` to inspect required inputs before execution.
-- [ ] **META-03**: Agent can call `composio_manage_connections` to inspect or initiate required connection/auth flows.
-- [ ] **META-04**: Agent can call `composio_multi_execute_tool` to execute one or more Composio tools through the meta-tool runtime.
-- [ ] **META-05**: Agent can call `composio_remote_bash_tool` to execute Composio remote bash functionality.
-- [ ] **META-06**: Agent can call `composio_remote_workbench` to use Composio remote workbench functionality.
-- [ ] **META-07**: Meta-tool wrappers return structured success/error responses suitable for opencode agents.
-- [ ] **META-08**: Meta-tool wrappers normalize Composio errors and preserve useful request/error metadata without leaking secrets.
+- [x] **META-01**: Agent can call `composio_search_tools` to discover Composio tools by use case.
+- [x] **META-02**: Agent can call `composio_get_tool_schemas` to inspect required inputs before execution.
+- [x] **META-03**: Agent can call `composio_manage_connections` to inspect or initiate required connection/auth flows.
+- [x] **META-04**: Agent can call `composio_multi_execute_tool` to execute one or more Composio tools through the meta-tool runtime.
+- [x] **META-05**: Agent can call `composio_remote_bash_tool` to execute Composio remote bash functionality.
+- [x] **META-06**: Agent can call `composio_remote_workbench` to use Composio remote workbench functionality.
+- [x] **META-07**: Meta-tool wrappers return structured success/error responses suitable for opencode agents.
+- [x] **META-08**: Meta-tool wrappers normalize Composio errors and preserve useful request/error metadata without leaking secrets.
 
 ### Trigger Authoring & Lifecycle
 
-- [ ] **TRIG-01**: Agent can call `composio_list_trigger_types` to discover available trigger types.
-- [ ] **TRIG-02**: Agent can call `composio_get_trigger_type_schema` to inspect trigger configuration schema before creating a trigger.
-- [ ] **TRIG-03**: Agent can call `composio_create_trigger` to create or update a trigger via Composio trigger upsert.
-- [ ] **TRIG-04**: Agent can call `composio_list_triggers` to inspect existing trigger instances.
-- [ ] **TRIG-05**: Agent can call native opencode tools `composio_enable_trigger` and `composio_disable_trigger` to enable or disable a trigger instance via the Composio trigger management status path.
-- [ ] **TRIG-06**: Agent can call `composio_delete_trigger` to permanently delete a trigger instance by exact trigger ID.
-- [ ] **TRIG-07**: Trigger delete requires explicit trigger ID and clear destructive intent in the tool schema/description.
-- [ ] **TRIG-08**: Trigger tools surface connected-account requirements clearly.
+- [x] **TRIG-01**: Agent can call `composio_list_trigger_types` to discover available trigger types.
+- [x] **TRIG-02**: Agent can call `composio_get_trigger_type_schema` to inspect trigger configuration schema before creating a trigger.
+- [x] **TRIG-03**: Agent can call `composio_create_trigger` to create or update a trigger via Composio trigger upsert.
+- [x] **TRIG-04**: Agent can call `composio_list_triggers` to inspect existing trigger instances.
+- [x] **TRIG-05**: Agent can call native opencode tools `composio_enable_trigger` and `composio_disable_trigger` to enable or disable a trigger instance via the Composio trigger management status path.
+- [x] **TRIG-06**: Agent can call `composio_delete_trigger` to permanently delete a trigger instance by exact trigger ID.
+- [x] **TRIG-07**: Trigger delete requires explicit trigger ID and clear destructive intent in the tool schema/description.
+- [x] **TRIG-08**: Trigger tools surface connected-account requirements clearly.
 
 ### Automation Handoff
 
-- [ ] **AUTO-01**: Agent can call `save_automation_definition` to persist automation metadata for a host application.
-- [ ] **AUTO-02**: By default, automation definitions are written to `~/.config/pi/composio-automations.json`.
-- [ ] **AUTO-03**: `PI_COMPOSIO_AUTOMATIONS_JSON` overrides the default handoff path.
-- [ ] **AUTO-04**: Per-call `filePath` overrides both the env var and default handoff path.
-- [ ] **AUTO-05**: Automation handoff file stores a JSON array and upserts records by `triggerId`.
-- [ ] **AUTO-06**: Handoff writes preserve existing unrelated records and unknown fields.
-- [ ] **AUTO-07**: Handoff writes are atomic enough to avoid corrupting the JSON file on failed writes.
+- [x] **AUTO-01**: Agent can call `save_automation_definition` to persist automation metadata for a host application.
+- [x] **AUTO-02**: By default, automation definitions are written to `~/.config/pi/composio-automations.json`.
+- [x] **AUTO-03**: `PI_COMPOSIO_AUTOMATIONS_JSON` overrides the default handoff path.
+- [x] **AUTO-04**: Per-call `filePath` overrides both the env var and default handoff path.
+- [x] **AUTO-05**: Automation handoff file stores a JSON array and upserts records by `triggerId`.
+- [x] **AUTO-06**: Handoff writes preserve existing unrelated records and unknown fields.
+- [x] **AUTO-07**: Handoff writes are atomic enough to avoid corrupting the JSON file on failed writes.
 
 ### Documentation & Verification
 
-- [ ] **DOCS-01**: README documents npm install, local development install, opencode config, command usage, and smoke test workflow.
-- [ ] **DOCS-02**: README documents credential precedence and first-use signup behavior.
-- [ ] **DOCS-03**: README documents all registered tools and which ones are destructive/open-world.
-- [ ] **DOCS-04**: README includes recommended opencode permission snippets for risky Composio tools.
-- [ ] **DOCS-05**: README documents integration test environment variables and manual trigger cleanup.
-- [ ] **TEST-01**: Unit tests cover credential resolution, redaction, handoff path resolution, handoff upsert, and API error normalization.
-- [ ] **TEST-02**: Typecheck and build pass from a clean checkout.
-- [ ] **TEST-03**: Integration tests can run with real Composio credentials and trigger fixtures.
-- [ ] **TEST-04**: Manual opencode smoke test verifies extension load, debug info, signup, trigger tools, handoff save, and cleanup.
+- [x] **DOCS-01**: README documents npm install, local development install, opencode config, command usage, and smoke test workflow.
+- [x] **DOCS-02**: README documents credential precedence and first-use signup behavior.
+- [x] **DOCS-03**: README documents all registered tools and which ones are destructive/open-world.
+- [x] **DOCS-04**: README includes recommended opencode permission snippets for risky Composio tools.
+- [x] **DOCS-05**: README documents integration test environment variables and manual trigger cleanup.
+- [x] **TEST-01**: Unit tests cover credential resolution, redaction, handoff path resolution, handoff upsert, and API error normalization.
+- [x] **TEST-02**: Typecheck and build pass from a clean checkout.
+- [x] **TEST-03**: Integration tests can run with real Composio credentials and trigger fixtures.
+- [x] **TEST-04**: Manual opencode smoke test verifies extension load, debug info, signup, trigger tools, handoff save, and cleanup.
 
 ## v2 Requirements
 
@@ -120,15 +120,15 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PKG-01 | Phase 8 | Pending |
-| PKG-02 | Phase 1 | Pending |
-| PKG-03 | Phase 1 | Pending |
-| PKG-04 | Phase 1 | Pending |
-| PKG-05 | Phase 8 | Pending |
-| RUNT-01 | Phase 1 | Pending |
+| PKG-01 | Phase 8 | Satisfied |
+| PKG-02 | Phase 1 | Satisfied |
+| PKG-03 | Phase 1 | Satisfied |
+| PKG-04 | Phase 1 | Satisfied |
+| PKG-05 | Phase 8 | Satisfied |
+| RUNT-01 | Phase 1 | Satisfied |
 | RUNT-02 | Phase 2 | Satisfied |
-| RUNT-03 | Phase 1 | Pending |
-| RUNT-04 | Phase 3 | Pending |
+| RUNT-03 | Phase 1 | Satisfied |
+| RUNT-04 | Phase 3 | Satisfied |
 | AUTH-01 | Phase 2 | Satisfied |
 | AUTH-02 | Phase 2 | Satisfied |
 | AUTH-03 | Phase 2 | Satisfied |
@@ -137,38 +137,38 @@ Which phases cover which requirements. Updated during roadmap creation.
 | AUTH-06 | Phase 2 | Satisfied |
 | AUTH-07 | Phase 2 | Satisfied |
 | AUTH-08 | Phase 2 | Satisfied |
-| META-01 | Phase 3 | Pending |
-| META-02 | Phase 3 | Pending |
-| META-03 | Phase 3 | Pending |
-| META-04 | Phase 3 | Pending |
-| META-05 | Phase 3 | Pending |
-| META-06 | Phase 3 | Pending |
-| META-07 | Phase 3 | Pending |
-| META-08 | Phase 3 | Pending |
-| TRIG-01 | Phase 4 | Pending |
-| TRIG-02 | Phase 4 | Pending |
-| TRIG-03 | Phase 4 | Pending |
-| TRIG-04 | Phase 4 | Pending |
-| TRIG-05 | Phase 4 | Pending |
-| TRIG-06 | Phase 4 | Pending |
-| TRIG-07 | Phase 4 | Pending |
-| TRIG-08 | Phase 4 | Pending |
-| AUTO-01 | Phase 5 | Pending |
-| AUTO-02 | Phase 5 | Pending |
-| AUTO-03 | Phase 5 | Pending |
-| AUTO-04 | Phase 5 | Pending |
-| AUTO-05 | Phase 5 | Pending |
-| AUTO-06 | Phase 5 | Pending |
-| AUTO-07 | Phase 5 | Pending |
-| DOCS-01 | Phase 6 | Pending |
-| DOCS-02 | Phase 6 | Pending |
-| DOCS-03 | Phase 6 | Pending |
-| DOCS-04 | Phase 6 | Pending |
-| DOCS-05 | Phase 6 | Pending |
-| TEST-01 | Phase 7 | Pending |
-| TEST-02 | Phase 7 | Pending |
-| TEST-03 | Phase 7 | Pending |
-| TEST-04 | Phase 7 | Pending |
+| META-01 | Phase 3 | Satisfied |
+| META-02 | Phase 3 | Satisfied |
+| META-03 | Phase 3 | Satisfied |
+| META-04 | Phase 3 | Satisfied |
+| META-05 | Phase 3 | Satisfied |
+| META-06 | Phase 3 | Satisfied |
+| META-07 | Phase 3 | Satisfied |
+| META-08 | Phase 3 | Satisfied |
+| TRIG-01 | Phase 4 | Satisfied |
+| TRIG-02 | Phase 4 | Satisfied |
+| TRIG-03 | Phase 4 | Satisfied |
+| TRIG-04 | Phase 4 | Satisfied |
+| TRIG-05 | Phase 4 | Satisfied |
+| TRIG-06 | Phase 4 | Satisfied |
+| TRIG-07 | Phase 4 | Satisfied |
+| TRIG-08 | Phase 4 | Satisfied |
+| AUTO-01 | Phase 5 | Satisfied |
+| AUTO-02 | Phase 5 | Satisfied |
+| AUTO-03 | Phase 5 | Satisfied |
+| AUTO-04 | Phase 5 | Satisfied |
+| AUTO-05 | Phase 5 | Satisfied |
+| AUTO-06 | Phase 5 | Satisfied |
+| AUTO-07 | Phase 5 | Satisfied |
+| DOCS-01 | Phase 6 | Satisfied |
+| DOCS-02 | Phase 6 | Satisfied |
+| DOCS-03 | Phase 6 | Satisfied |
+| DOCS-04 | Phase 6 | Satisfied |
+| DOCS-05 | Phase 6 | Satisfied |
+| TEST-01 | Phase 7 | Satisfied |
+| TEST-02 | Phase 7 | Satisfied |
+| TEST-03 | Phase 7 | Satisfied |
+| TEST-04 | Phase 7 | Satisfied |
 
 **Coverage:**
 - v1 requirements: 49 total
@@ -178,4 +178,4 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 ---
 *Requirements defined: 2026-05-15*  
-*Last updated: 2026-05-16 after Phase 2 completion and live signup/claim verification*
+*Last updated: 2026-05-20 after Phase 8 npm package release readiness*

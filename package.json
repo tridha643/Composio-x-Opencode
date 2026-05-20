@@ -2,7 +2,23 @@
   "name": "composio-x-opencode",
   "version": "0.1.0",
   "description": "Composio-backed opencode plugin for runtime tools, trigger authoring, and automation handoff.",
+  "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tridha643/Composio-x-Opencode.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tridha643/Composio-x-Opencode/issues"
+  },
+  "homepage": "https://github.com/tridha643/Composio-x-Opencode#readme",
+  "keywords": [
+    "opencode",
+    "composio",
+    "plugin",
+    "automation",
+    "triggers"
+  ],
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -23,9 +39,15 @@
     "test": "bun test test/unit",
     "typecheck": "tsc --noEmit",
     "build": "tsup",
+    "verify": "bun run typecheck && bun run build && bun run test && bun run test:integration && bun run smoke:local",
     "test:integration": "bun test test/integration --timeout 60000",
+    "verify:claim": "bun scripts/live-verify-claim.ts",
     "smoke:local": "bun run build && bun scripts/smoke-local.ts",
-    "pack:check": "publint && npm pack --dry-run"
+    "smoke:tarball": "bun run build && bun scripts/smoke-tarball-install.ts",
+    "pack:audit": "bun scripts/pack-audit.ts",
+    "pack:check": "bun run build && publint && bun run pack:audit",
+    "release:check": "bun run verify && bun run pack:check && bun run smoke:tarball",
+    "prepublishOnly": "bun run release:check"
   },
   "dependencies": {
     "@opencode-ai/plugin": "^1.15.0",

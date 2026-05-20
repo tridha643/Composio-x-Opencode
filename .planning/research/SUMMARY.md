@@ -136,9 +136,9 @@ Based on research, suggested phase structure:
 
 Phases likely needing deeper research during planning:
 - **Phase 2:** Signup/claim exact POST payloads and identity state transitions need validation against live APIs or `composio-x-pi` source.
-- **Phase 3:** Meta-tool implementation details need validation against current Composio tool-router/session API and response shapes.
-- **Phase 4:** Trigger v3.1 request/response schemas, filters, upsert idempotency, and delete response shape need live/API-type validation.
-- **Phase 5:** Exact Pi-compatible automation handoff JSON schema needs inspection of `composio-x-pi` README/code or canonical fixtures.
+- **Phase 3:** Resolved in implementation with tool-router session handling, meta-tool mapping, and redacted error tests; live API smoke remains in Phase 7.
+- **Phase 4:** Resolved in implementation with v3.1 trigger endpoint mapping, filters, upsert, list, enable, disable, delete, and redacted error tests; live trigger smoke remains in Phase 7.
+- **Phase 5:** Resolved 2026-05-20 by inspecting `composio-x-pi@0.0.8` README/source/tests for the `save_automation_definition` handoff schema.
 - **Phase 6:** Custom-tool permission targeting should be smoke-tested in real opencode to confirm prompts match docs.
 
 Phases with standard patterns (skip research-phase unless requirements change):
@@ -160,9 +160,9 @@ Phases with standard patterns (skip research-phase unless requirements change):
 ### Gaps to Address
 
 - **Signup/claim API contract:** Verify exact request/response payloads, idempotency, and claim state transitions before finalizing Phase 2.
-- **`composio-x-pi` handoff schema:** Inspect the actual package/source or obtain canonical fixtures before Phase 5 implementation.
-- **Composio meta-tool execution contract:** Validate session creation, `execute_meta` payload shape, response normalization, and error categories with live or typed references.
-- **Trigger lifecycle details:** Confirm filters, pagination, upsert reuse behavior, delete responses, and version metadata for trigger schema tools.
+- **`composio-x-pi` handoff schema:** Resolved 2026-05-20; `save_automation_definition` now matches the inspected Pi-compatible schema and path precedence.
+- **Composio meta-tool execution contract:** Implemented with session creation/cache, `execute_meta` payload mapping, response normalization, and redacted error categories; live verification remains a Phase 7 smoke task.
+- **Trigger lifecycle details:** Implemented filters, pagination, upsert response normalization, enable/disable/delete paths, and version metadata handling; live verification remains a Phase 7 smoke task.
 - **opencode custom-tool permissions:** Run real smoke tests to confirm custom plugin tool names can be targeted exactly by `permission` config.
 - **Output sizing and redaction:** Empirically inspect large Composio responses and add truncation/pagination/includeRaw policies where needed.
 

@@ -19,6 +19,8 @@ export type ClaimAnonymousIdentitySummary = {
   email: string
   orgId?: string
   inviteCodePresent: boolean
+  claimSlugPresent: boolean
+  expiresAt?: string
   nextSteps: string[]
 }
 
@@ -69,14 +71,18 @@ function parseClaimPayload(value: unknown) {
     optionalString(payload.organizationId)
   const inviteCode = optionalString(payload.invite_code) ?? optionalString(payload.inviteCode)
   const inviteStatus = optionalString(payload.invite_status) ?? optionalString(payload.inviteStatus)
+  const claimSlug = optionalString(payload.claim_slug) ?? optionalString(payload.claimSlug)
+  const expiresAt = optionalString(payload.expires_at) ?? optionalString(payload.expiresAt)
 
-  if (!status && !inviteStatus && !email && !orgId && !inviteCode) return null
+  if (!status && !inviteStatus && !email && !orgId && !inviteCode && !claimSlug) return null
 
   return {
     status: status ?? inviteStatus ?? "invited",
     email,
     orgId,
     inviteCodePresent: Boolean(inviteCode),
+    claimSlugPresent: Boolean(claimSlug),
+    expiresAt,
   }
 }
 
@@ -87,7 +93,12 @@ function stripSensitiveNamesAndWords(value: unknown): unknown {
 
   return Object.fromEntries(
     Object.entries(value)
-      .filter(([key]) => !/(agent[_-]?key|api[_-]?key|user[_-]?api[_-]?key|authorization|token|secret|password)/i.test(key))
+      .filter(
+        ([key]) =>
+          !/(agent[_-]?key|api[_-]?key|user[_-]?api[_-]?key|authorization|token|secret|password|invite[_-]?code|claim[_-]?slug)/i.test(
+            key,
+          ),
+      )
       .map(([key, entry]) => [key, stripSensitiveNamesAndWords(entry)]),
   )
 }
@@ -130,12 +141,26 @@ async function parseJsonResponse(response: Response, knownSecrets: readonly stri
   }
 }
 
-function nextStepsFor(status: string, email: string, inviteCodePresent: boolean): string[] {
+function nextStepsFor(
+  status: string,
+  email: string,
+  inviteCodePresent: boolean,
+  claimSlugPresent: boolean,
+  expiresAt?: string,
+): string[] {
   const normalized = status.toLowerCase()
   const steps = [`Check ${email} for a Composio organization invite or claim confirmation.`]
 
+  if (expiresAt) {
+    steps.push(`This claim handoff expires at ${expiresAt} according to Composio.`)
+  }
+
   if (inviteCodePresent) {
     steps.push("Use the invite link/code from the email or Composio UI; this tool intentionally hides raw invite codes.")
+  } else if (claimSlugPresent) {
+    steps.push(
+      "Composio returned a claim_slug handoff token (hidden here). If email does not arrive, sign into Composio or check spam folders before retrying.",
+    )
   }
 
   if (["invited", "invite_sent", "pending"].includes(normalized)) {
@@ -198,8 +223,16 @@ export async function claimAnonymousIdentity(
     status,
     email: payload.email ?? email,
     inviteCodePresent: payload.inviteCodePresent,
-    nextSteps: nextStepsFor(status, payload.email ?? email, payload.inviteCodePresent),
+    claimSlugPresent: payload.claimSlugPresent,
+    nextSteps: nextStepsFor(
+      status,
+      payload.email ?? email,
+      payload.inviteCodePresent,
+      payload.claimSlugPresent,
+      payload.expiresAt,
+    ),
   }
+  if (payload.expiresAt !== undefined) summary.expiresAt = payload.expiresAt
   if (payload.orgId !== undefined) summary.orgId = payload.orgId
   return summary
 }

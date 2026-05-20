@@ -5,21 +5,21 @@
 See: .planning/PROJECT.md (updated 2026-05-15)
 
 **Core value:** An opencode agent can use Composio’s full meta-tool and trigger-authoring surface with no manual setup, including first-use signup, tool execution, trigger creation, and automation handoff.  
-**Current focus:** Phase 3 — Composio Meta Tools & Safety Descriptions
+**Current focus:** v1 complete — npm Package Release Readiness finished
 
 ## Current Position
 
-Phase: 3 of 8 (Composio Meta Tools & Safety Descriptions)  
-Plan: 0 of TBD in current phase  
-Status: Ready to plan  
-Last activity: 2026-05-16 — Completed Phase 2 execution and live-verified signup plus claim handoff against agents.composio.dev.
+Phase: 8 of 8 (npm Package Release Readiness)  
+Plan: 1 of 1 in current phase  
+Status: Complete  
+Last activity: 2026-05-20 — Completed Phase 8 local npm release readiness with MIT licensing, strict pack audit, and fresh tarball install smoke.
 
-Progress: [███░░░░░░░] 25%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 7
+- Total plans completed: 13
 - Average duration: 3 min
 - Total execution time: 0.35 hours
 
@@ -29,6 +29,12 @@ Progress: [███░░░░░░░] 25%
 |-------|-------|-------|----------|
 | 01-package-skeleton-opencode-registration | 3 | 6 min | 2 min |
 | 02-credentials-signup-claim-redacted-debug | 4 | 15 min | 4 min |
+| 03-composio-meta-tools-safety-descriptions | 1 | - | - |
+| 04-native-trigger-authoring-lifecycle-tools | 1 | - | - |
+| 05-pi-compatible-automation-handoff | 1 | - | - |
+| 06-user-documentation-permission-guidance | 1 | - | - |
+| 07-automated-verification-smoke-tests | 1 | - | - |
+| 08-npm-package-release-readiness | 1 | - | - |
 
 **Recent Trend:**
 - Last 5 plans: 2 min, 3 min, 5 min, 4 min, 3 min
@@ -69,20 +75,33 @@ Decisions are logged in PROJECT.md Key Decisions table. Recent decisions affecti
 - [Phase 02-credentials-signup-claim-redacted-debug]: Expose credential presence booleans and auth source while never printing COMPOSIO_API_KEY, anonymous JSON secrets, raw headers, or secret-bearing field values.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Wire Phase 2 tools under the existing stable registry names and leave Phase 3+ tools as placeholders to avoid generated v2 surface area.
 - [Phase 02-credentials-signup-claim-redacted-debug]: Live signup and claim handoff passed against agents.composio.dev using isolated temporary HOME directories; claim to tridhatriv@gmail.com returned invited status and secret-free next steps.
+- [Phase 03-composio-meta-tools-safety-descriptions]: Registered all six meta tools (`composio_search_tools`, `composio_get_tool_schemas`, `composio_manage_connections`, `composio_multi_execute_tool`, `composio_remote_bash_tool`, `composio_remote_workbench`) with shared tool-router session handling.
+- [Phase 03-composio-meta-tools-safety-descriptions]: Meta tools return structured JSON results, mark auth/open-world risks in descriptions and payloads, and normalize/redact Composio client errors.
+- [Phase 04-native-trigger-authoring-lifecycle-tools]: Registered native trigger discovery/schema/upsert/list/enable/disable/delete tools with v3.1 endpoint mapping and structured results.
+- [Phase 04-native-trigger-authoring-lifecycle-tools]: Trigger delete requires exact `trigger_id` plus `confirm: true`; disable explicitly pauses without deleting; create/list outputs include connected-account guidance and raw response context.
+- [Phase 05-pi-compatible-automation-handoff]: Matched `composio-x-pi@0.0.8` handoff schema: `name`, `triggerId`, `triggerSlug`, `instructions`, optional `enabled`, optional `metadata`, and `updatedAt`.
+- [Phase 05-pi-compatible-automation-handoff]: Path precedence is per-call `filePath`, then `PI_COMPOSIO_AUTOMATIONS_JSON`, then `~/.config/pi/composio-automations.json`; relative paths resolve from the opencode tool context directory.
+- [Phase 05-pi-compatible-automation-handoff]: Handoff writes remain local-only, preserve JSON array format, upsert by `triggerId`, preserve unrelated records and unknown fields, and write via temp-file rename to avoid corrupting existing files.
+- [Phase 06-user-documentation-permission-guidance]: Rewrote README to document install/configuration, `/composio-claim`, credential precedence, complete tool namespace, risk classifications, opencode permission snippets, workflows, handoff semantics, smoke/integration variables, cleanup guidance, and explicit v1 out-of-scope boundaries.
+- [Phase 06-user-documentation-permission-guidance]: Kept npm publish readiness and real opencode permission prompt validation out of Phase 6; Phase 7 owns live smoke validation and Phase 8 owns release packaging.
+- [Phase 07-automated-verification-smoke-tests]: Added `bun run verify` as the clean-checkout local verification gate across typecheck, build, unit tests, integration tests, and local smoke.
+- [Phase 07-automated-verification-smoke-tests]: Added gated live Composio E2E coverage for search/schema, trigger type/schema, trigger create/update, list, handoff save, disable, enable, disable, and delete cleanup.
+- [Phase 07-automated-verification-smoke-tests]: Documented real opencode smoke flow and custom-tool permission prompt validation while keeping remote bash/workbench execution opt-in only.
+- [Phase 08-npm-package-release-readiness]: Scoped release readiness to local checks only: no hosted CI, no automatic npm publishing, and no npm publish execution during implementation.
+- [Phase 08-npm-package-release-readiness]: Added MIT licensing and package metadata while keeping the published package allowlist limited to built dist, README, LICENSE, and always-included package metadata.
+- [Phase 08-npm-package-release-readiness]: Added `bun run release:check` as the local gate across `verify`, build, `publint`, strict npm pack audit, and fresh tarball install smoke.
+- [Phase 08-npm-package-release-readiness]: Kept runtime Composio behavior unchanged, live Composio E2E expansion out of Phase 8, and automatic opencode config/permission mutation out of v1.
 
 ### Pending Todos
 
-- [Phase 3]: Plan meta-tool execution contract and response/error shapes against current Composio APIs.
+- None.
 
 ### Blockers/Concerns
 
-- [Phase 3]: Meta-tool execution contract and response/error shapes need validation against current Composio tool-router/session APIs.
-- [Phase 4]: Native trigger tool registration plus trigger lifecycle filters, pagination, upsert idempotency, enable/disable status path, and delete response details need live/API-type validation.
-- [Phase 5]: Exact Pi-compatible automation handoff schema needs inspection from `composio-x-pi` README/code or canonical fixtures.
-- [Phase 7]: opencode custom-tool permission targeting must be smoke-tested in real opencode.
+- None.
 
 ## Session Continuity
 
-Last session: 2026-05-16  
-Stopped at: Phase 2 complete and live verified; ready to plan Phase 3  
+Last session: 2026-05-20  
+Stopped at: Phase 8 complete; v1 local release readiness verified  
 Resume file: None

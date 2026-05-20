@@ -90,6 +90,7 @@ describe("createClaimTool", () => {
         email: options.email,
         orgId: "org_test",
         inviteCodePresent: true,
+        claimSlugPresent: false,
         nextSteps: ["Check owner@example.com for the invite", "Accept the invite to claim the org"],
       }),
     })
