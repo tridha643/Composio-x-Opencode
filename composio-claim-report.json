@@ -1,0 +1,77 @@
+{
+  "baseUrl": "https://agents.composio.dev",
+  "tempHome": "/var/folders/3k/rvwd83vj3rj95hyynmks9l0m0000gn/T/composio-live-verify-claim-OvN3MT",
+  "tempHomeRemoved": false,
+  "requestedEmail": "tridhatriv@gmail.com",
+  "signup": {
+    "ok": true,
+    "status": "ready",
+    "reused": false,
+    "source": "anonymous",
+    "anonymousDataPath": "/var/folders/3k/rvwd83vj3rj95hyynmks9l0m0000gn/T/composio-live-verify-claim-OvN3MT/.composio/anonymous_user_data.json",
+    "slug": "crimson-tide-badger",
+    "email": "crimson-tide-badger@agent.composio.ai",
+    "orgId": "ok_SclNBzYseQQu",
+    "projectId": "pr_t-LPg8bGQsVM",
+    "restrictivePermissions": true
+  },
+  "claim": {
+    "httpStatus": 200,
+    "httpStatusText": "OK",
+    "ok": true,
+    "shape": {
+      "topLevelKeys": [
+        "claim_slug",
+        "email",
+        "expires_at",
+        "org_id",
+        "status"
+      ],
+      "dataKeys": [],
+      "status": "invited",
+      "email": "tridhatriv@gmail.com",
+      "orgIdPresent": true,
+      "inviteCodePresent": false,
+      "claimSlugPresent": true,
+      "expiresAtPresent": true,
+      "contract": "live_claim_slug"
+    },
+    "responseBody": {
+      "contentType": "application/json",
+      "kind": "json",
+      "json": {
+        "status": "invited",
+        "email": "tridhatriv@gmail.com",
+        "org_id": "ok_SclNBzYseQQu",
+        "claim_slug": "apace-howel-swill-niece",
+        "expires_at": "2026-05-23T19:43:40.333Z"
+      }
+    },
+    "pluginStyleSummary": {
+      "ok": true,
+      "status": "invited",
+      "email": "tridhatriv@gmail.com",
+      "inviteCodePresent": false,
+      "claimSlugPresent": true,
+      "nextSteps": [
+        "Check tridhatriv@gmail.com for a Composio organization invite or claim confirmation.",
+        "This claim handoff expires at 2026-05-23T19:43:40.333Z according to Composio.",
+        "Composio returned a claim_slug handoff token (hidden here). If email does not arrive, sign into Composio or check spam folders before retrying.",
+        "Accept the invite to take ownership of the anonymous Composio organization."
+      ],
+      "orgId": "ok_SclNBzYseQQu",
+      "expiresAt": "2026-05-23T19:43:40.333Z"
+    }
+  },
+  "verdict": [
+    "PASS: /api/claim returned a 2xx HTTP response.",
+    "PASS: response status is \"invited\".",
+    "OBSERVED: live API contract uses claim_slug/expires_at style fields, not docs invite_code.",
+    "OBSERVED: response includes an expiry timestamp for the claim handoff.",
+    "NOTE: API success does not prove email delivery; check the target inbox/spam manually."
+  ],
+  "manualEmailCheck": [
+    "Check tridhatriv@gmail.com for a Composio organization invite or claim confirmation.",
+    "If no email arrives, capture this script's report and ask Composio whether claim_slug implies automatic email delivery or a separate claim-link flow."
+  ]
+}

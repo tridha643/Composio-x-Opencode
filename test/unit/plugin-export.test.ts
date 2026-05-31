@@ -1,11 +1,16 @@
 import { afterEach, describe, expect, test } from "bun:test"
+import { mkdtemp, rm } from "node:fs/promises"
+import { tmpdir } from "node:os"
+import { join } from "node:path"
 import type { Plugin, PluginInput, ToolDefinition } from "@opencode-ai/plugin"
 
 import plugin from "../../src/index"
+import { buildComposioToolRegistry } from "../../src/plugin/register-tools"
 import { COMPOSIO_TOOL_NAMES } from "../../src/plugin/manifest"
 
 const ORIGINAL_FETCH = globalThis.fetch
 const typedPlugin = plugin as Plugin
+const tempHomes: string[] = []
 
 function createPluginInput(): PluginInput {
   return {
@@ -34,6 +39,12 @@ function createToolContext() {
   }
 }
 
+async function createTempHome() {
+  const home = await mkdtemp(join(tmpdir(), "composio-x-opencode-plugin-"))
+  tempHomes.push(home)
+  return home
+}
+
 async function loadPluginWithFetchGuard() {
   const fetchCalls: unknown[] = []
   const originalFetch = globalThis.fetch
@@ -54,6 +65,7 @@ async function loadPluginWithFetchGuard() {
 afterEach(() => {
   // Keep later tests insulated if an assertion throws before helper cleanup.
   globalThis.fetch = ORIGINAL_FETCH
+  return Promise.all(tempHomes.splice(0).map((home) => rm(home, { recursive: true, force: true })))
 })
 
 describe("default opencode plugin export", () => {
@@ -95,28 +107,22 @@ describe("default opencode plugin export", () => {
     expect(JSON.stringify(parsed)).not.toContain("api_key")
   })
 
-  test("signup and claim are real Phase 2 tools while future tools remain placeholders", async () => {
+  test("signup, claim, and runtime tools are real implementations", async () => {
     const { hooks } = await loadPluginWithFetchGuard()
     const signupTool = hooks.tool?.composio_signup as ToolDefinition | undefined
     const claimTool = hooks.tool?.composio_claim as ToolDefinition | undefined
-    const futureTool = hooks.tool?.composio_search_tools as ToolDefinition | undefined
 
     expect(signupTool?.description).toContain("official agent signup flow")
     expect(claimTool?.description).toContain("anonymous Composio identity")
 
-    const signupResult = await signupTool?.execute({}, createToolContext())
-    const claimResult = await claimTool?.execute({ email: "owner@example.com" }, createToolContext())
-    const futureResult = await futureTool?.execute({}, createToolContext())
-    const signupParsed = JSON.parse(typeof signupResult === "string" ? signupResult : signupResult?.output ?? "{}")
-    const claimParsed = JSON.parse(typeof claimResult === "string" ? claimResult : claimResult?.output ?? "{}")
-    const futureParsed = JSON.parse(typeof futureResult === "string" ? futureResult : futureResult?.output ?? "{}")
+    const registry = buildComposioToolRegistry({ env: {}, home: await createTempHome() })
+    const runtimeTool = registry.composio_search_tools
+    const runtimeResult = await runtimeTool.execute({ queries: ["hacker news"] }, createToolContext())
+    const runtimeParsed = JSON.parse(typeof runtimeResult === "string" ? runtimeResult : runtimeResult.output)
 
-    expect(signupParsed.code).not.toBe("not_implemented_in_phase_1")
-    expect(claimParsed.code).not.toBe("not_implemented_in_phase_1")
-    expect(futureParsed).toMatchObject({
+    expect(runtimeParsed).toMatchObject({
       ok: false,
-      code: "not_implemented_in_phase_1",
-      tool: "composio_search_tools",
+      code: "MISSING_COMPOSIO_CREDENTIALS",
     })
   })
 })

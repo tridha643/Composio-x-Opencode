@@ -24,6 +24,7 @@
     "typecheck": "tsc --noEmit",
     "build": "tsup",
     "test:integration": "bun test test/integration --timeout 60000",
+    "test:live:runtime": "RUN_COMPOSIO_LIVE_RUNTIME_TESTS=1 bun test test/integration/live-runtime.test.ts --timeout 120000",
     "smoke:local": "bun run build && bun scripts/smoke-local.ts",
     "pack:check": "publint && npm pack --dry-run"
   },

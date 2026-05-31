@@ -3,6 +3,7 @@ import { tool, type ToolDefinition } from "@opencode-ai/plugin"
 import { claimAnonymousIdentity, type ClaimAnonymousIdentityOptions } from "../auth/claim-flow"
 import { ensureAnonymousIdentity, type EnsureAnonymousIdentityOptions } from "../auth/signup-flow"
 import { toToolErrorPayload } from "../auth/errors"
+import { getComposioAgentBaseUrl } from "../composio/config"
 
 type SignupService = (options: EnsureAnonymousIdentityOptions) => ReturnType<typeof ensureAnonymousIdentity>
 type ClaimService = (options: ClaimAnonymousIdentityOptions) => ReturnType<typeof claimAnonymousIdentity>
@@ -27,7 +28,7 @@ function serviceOptions(options: CreateSignupToolOptions, wait: boolean | undefi
   const output: EnsureAnonymousIdentityOptions = {}
   if (options.home !== undefined) output.home = options.home
   if (options.fetchImpl !== undefined) output.fetchImpl = options.fetchImpl
-  if (options.baseUrl !== undefined) output.baseUrl = options.baseUrl
+  output.baseUrl = options.baseUrl ?? getComposioAgentBaseUrl()
   if (wait !== undefined) output.wait = wait
   return output
 }
@@ -36,7 +37,7 @@ function claimServiceOptions(options: CreateClaimToolOptions, email: string): Cl
   const output: ClaimAnonymousIdentityOptions = { email }
   if (options.home !== undefined) output.home = options.home
   if (options.fetchImpl !== undefined) output.fetchImpl = options.fetchImpl
-  if (options.baseUrl !== undefined) output.baseUrl = options.baseUrl
+  output.baseUrl = options.baseUrl ?? getComposioAgentBaseUrl()
   return output
 }
 

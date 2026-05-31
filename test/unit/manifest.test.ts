@@ -13,7 +13,7 @@ const FORBIDDEN_BUILT_IN_OR_GENERIC_NAMES = new Set([
   "claim",
 ])
 
-const PHASE_1_RESEARCH_ORDER = [
+const STABLE_V1_TOOL_ORDER = [
   "composio_debug_info",
   "composio_signup",
   "composio_claim",
@@ -33,11 +33,11 @@ const PHASE_1_RESEARCH_ORDER = [
   "save_automation_definition",
 ] as const
 
-describe("Phase 1 Composio tool manifest", () => {
+describe("stable Composio tool manifest", () => {
   test("keeps exactly 17 unique names in the researched order", () => {
     expect(COMPOSIO_TOOL_NAMES).toHaveLength(17)
     expect(new Set(COMPOSIO_TOOL_NAMES).size).toBe(COMPOSIO_TOOL_NAMES.length)
-    expect(COMPOSIO_TOOL_NAMES).toEqual(PHASE_1_RESEARCH_ORDER)
+    expect(COMPOSIO_TOOL_NAMES).toEqual(STABLE_V1_TOOL_ORDER)
   })
 
   test("uses lowercase opencode-safe names with the expected namespace", () => {
