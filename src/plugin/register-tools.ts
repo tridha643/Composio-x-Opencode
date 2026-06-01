@@ -3,6 +3,7 @@ import { type ToolDefinition } from "@opencode-ai/plugin"
 import { COMPOSIO_TOOL_MANIFEST, type ComposioToolName } from "./manifest"
 import { ComposioSessionManager, type ComposioSessionManagerOptions } from "../composio/session-manager"
 import { createSignupTool, createClaimTool } from "../tools/auth"
+import { createComposioCliTool } from "../tools/cli"
 import { createDebugInfoTool } from "../tools/debug-info"
 import { createSaveAutomationDefinitionTool } from "../tools/handoff"
 import {
@@ -56,6 +57,10 @@ export function buildComposioToolRegistry(options: ComposioSessionManagerOptions
 
       if (manifestEntry.name === "composio_multi_execute_tool") {
         return [manifestEntry.name, createMultiExecuteTool(sessionManager)]
+      }
+
+      if (manifestEntry.name === "composio_cli") {
+        return [manifestEntry.name, createComposioCliTool(options)]
       }
 
       if (manifestEntry.name === "composio_remote_bash_tool") {

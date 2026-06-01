@@ -21,6 +21,7 @@ const STABLE_V1_TOOL_ORDER = [
   "composio_get_tool_schemas",
   "composio_manage_connections",
   "composio_multi_execute_tool",
+  "composio_cli",
   "composio_remote_bash_tool",
   "composio_remote_workbench",
   "composio_list_trigger_types",
@@ -34,8 +35,8 @@ const STABLE_V1_TOOL_ORDER = [
 ] as const
 
 describe("stable Composio tool manifest", () => {
-  test("keeps exactly 17 unique names in the researched order", () => {
-    expect(COMPOSIO_TOOL_NAMES).toHaveLength(17)
+  test("keeps exactly 18 unique names in the researched order", () => {
+    expect(COMPOSIO_TOOL_NAMES).toHaveLength(18)
     expect(new Set(COMPOSIO_TOOL_NAMES).size).toBe(COMPOSIO_TOOL_NAMES.length)
     expect(COMPOSIO_TOOL_NAMES).toEqual(STABLE_V1_TOOL_ORDER)
   })
