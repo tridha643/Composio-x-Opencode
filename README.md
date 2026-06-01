@@ -73,6 +73,16 @@ Credential resolution order is:
 
 `COMPOSIO_API_KEY` always wins. This supports CI and users with existing Composio API keys.
 
+To store a Composio API key from opencode without pasting it into chat, use:
+
+```text
+/composio-set-api-key
+```
+
+The command rejects API keys passed as slash-command arguments, prompts locally with hidden input, writes `~/.composio/anonymous_user_data.json`, and sets restrictive file permissions. It uses `/dev/tty` when available and falls back to a macOS hidden GUI prompt when opencode's shell runner has no interactive TTY.
+
+If `COMPOSIO_API_KEY` is already set in opencode's environment, that environment value still takes precedence over the stored file. Restart opencode with `COMPOSIO_API_KEY` fixed or unset before the stored file can be used.
+
 `composio_signup` provisions or reuses an anonymous Composio identity and persists credentials to `~/.composio/anonymous_user_data.json` with restrictive file permissions where the platform supports them.
 
 `composio_claim` requests handoff of the anonymous Composio organization to a human email address. The `/composio-claim <email>` command should call the same tool.
