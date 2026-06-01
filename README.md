@@ -72,6 +72,7 @@ rtk test env RUN_COMPOSIO_LIVE_AGENT_TESTS=1 bun test test/integration/live-agen
 | `composio_get_tool_schemas` | Implemented | Uses Tool Router `COMPOSIO_GET_TOOL_SCHEMAS` |
 | `composio_manage_connections` | Implemented | Uses Tool Router `COMPOSIO_MANAGE_CONNECTIONS` |
 | `composio_multi_execute_tool` | Implemented | Uses Tool Router `COMPOSIO_MULTI_EXECUTE_TOOL` |
+| `composio_cli` | Implemented | Worst-case fallback that invokes the authenticated local `composio` CLI |
 | `composio_remote_bash_tool` | Implemented | Requires `confirm_remote_execution=true` |
 | `composio_remote_workbench` | Implemented | Requires `confirm_remote_execution=true` |
 | `composio_list_trigger_types` | Implemented | Calls Composio trigger type API |

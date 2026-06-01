@@ -2,6 +2,7 @@ export type ComposioToolCategory =
   | "diagnostics"
   | "auth"
   | "meta"
+  | "cli"
   | "remote"
   | "trigger"
   | "handoff"
@@ -26,6 +27,7 @@ export const COMPOSIO_TOOL_NAMES = [
   "composio_get_tool_schemas",
   "composio_manage_connections",
   "composio_multi_execute_tool",
+  "composio_cli",
   "composio_remote_bash_tool",
   "composio_remote_workbench",
   "composio_list_trigger_types",
@@ -89,6 +91,13 @@ export const COMPOSIO_TOOL_MANIFEST = [
     description: "Execute one or more Composio tools through structured meta-tool calls.",
     category: "meta",
     risk: "network",
+    phase: 3,
+  },
+  {
+    name: "composio_cli",
+    description: "Invoke the authenticated local Composio CLI as an unrestricted fallback path.",
+    category: "cli",
+    risk: "open_world",
     phase: 3,
   },
   {
